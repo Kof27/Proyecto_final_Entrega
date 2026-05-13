@@ -1,0 +1,29 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.2.8</VERSION>
+ <DEVICE>"ATmega328PB"</DEVICE>
+ <WORKING_DIR>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_1Assembly\Etapa_1Assembly\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc</DIR>
+  <DIR>C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
+  <DIR></DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_1Assembly\Etapa_1Assembly\main.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328PBdef.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_1Assembly\Etapa_1Assembly\Debug\Etapa_1Assembly.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>Etapa_1Assembly.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>Etapa_1Assembly.map</FILE>
+  <FILE>Etapa_1Assembly.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <RESET><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_1Assembly\Etapa_1Assembly\main.asm</FILE><LINE>17</LINE></RESET>
+  <START><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_1Assembly\Etapa_1Assembly\main.asm</FILE><LINE>75</LINE></START>
+  <MAIN><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_1Assembly\Etapa_1Assembly\main.asm</FILE><LINE>70</LINE></MAIN>
+ </LABELS>
+</ASSEMBLER_INFO>

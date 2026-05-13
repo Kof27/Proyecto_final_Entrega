@@ -1,0 +1,77 @@
+<circuit version="1.1.0-SR2" rev="260312" stepSize="1000000" stepsPS="1000000" NLsteps="100000" reaStep="1000000" animate="1" >
+
+<item itemtype="MCU" CircId="mega328PB-6" mainComp="false" Show_id="true" Show_Val="false" Pos="-484,-112" rotation="0" hflip="1" vflip="1" label="mega328PB-6" idLabPos="0,-20" labelrot="0" valLabPos="-16,20" valLabRot="0" Frequency="16 MHz" Program="../Etapa_1Assembly/Etapa_1Assembly/Debug/Etapa_1Assembly.hex" Auto_Load="false" saveEepr="true" Ext_Osc="false" Wdt_enabled="false" Clk_Out="false" MainMcu="true" SerialMon="-1" />
+
+<item itemtype="BcdTo7S" CircId="BcdTo7S-7" mainComp="false" Show_id="false" Show_Val="false" Pos="-296,-68" rotation="0" hflip="1" vflip="1" label="BcdTo7S-7" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Input_High_V="2.5 V" Input_Low_V="2.5 V" Input_Imped="1000 MΩ" Invert_Inputs="false" Out_High_V="5 V" Out_Low_V="0 V" Out_Imped="40 Ω" Inverted="false" Open_Collector="false" pd_n="1 _Gates" Tpd_ps="10 ns" Tr_ps="3 ns" Tf_ps="4 ns" />
+
+<item itemtype="Seven Segment" CircId="Seven Segment-8" mainComp="false" Show_id="false" Show_Val="false" Pos="-224,-68" rotation="0" hflip="1" vflip="1" label="Seven Segment-8" idLabPos="20,-44" labelrot="0" valLabPos="-16,20" valLabRot="0" Color="Yellow" NumDisplays="1" Vertical_Pins="false" CommonCathode="true" Threshold="2.4 V" MaxCurrent="20 mA" Resistance="1 Ω" />
+
+<item itemtype="Seven Segment" CircId="Seven Segment-9" mainComp="false" Show_id="false" Show_Val="false" Pos="-80,-64" rotation="0" hflip="1" vflip="1" label="Seven Segment-9" idLabPos="20,-44" labelrot="0" valLabPos="-16,20" valLabRot="0" Color="Yellow" NumDisplays="1" Vertical_Pins="false" CommonCathode="true" Threshold="2.4 V" MaxCurrent="20 mA" Resistance="1 Ω" />
+
+<item itemtype="BcdTo7S" CircId="BcdTo7S-10" mainComp="false" Show_id="false" Show_Val="false" Pos="-152,-64" rotation="0" hflip="1" vflip="1" label="BcdTo7S-10" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Input_High_V="2.5 V" Input_Low_V="2.5 V" Input_Imped="1000 MΩ" Invert_Inputs="false" Out_High_V="5 V" Out_Low_V="0 V" Out_Imped="40 Ω" Inverted="false" Open_Collector="false" pd_n="1 _Gates" Tpd_ps="10 ns" Tr_ps="3 ns" Tf_ps="4 ns" />
+
+<item itemtype="Ground" CircId="Ground-18" mainComp="false" Show_id="false" Show_Val="false" Pos="-216,-8" rotation="0" hflip="1" vflip="1" label="Ground-18" idLabPos="-16,8" labelrot="0" valLabPos="-16,20" valLabRot="0" />
+
+<item itemtype="Ground" CircId="Ground-19" mainComp="false" Show_id="false" Show_Val="false" Pos="-72,-4" rotation="0" hflip="1" vflip="1" label="Ground-19" idLabPos="-16,8" labelrot="0" valLabPos="-16,20" valLabRot="0" />
+
+<item itemtype="Fixed Voltage" CircId="Fixed Voltage-25" mainComp="false" Show_id="false" Show_Val="false" Pos="-536,-96" rotation="0" hflip="1" vflip="1" label="Fixed Voltage-25" idLabPos="-64,-24" labelrot="0" valLabPos="-16,8" valLabRot="0" Voltage="5 V" Out="true" />
+
+<item itemtype="Node" CircId="Node-28" mainComp="false" Pos="-304,-132" />
+
+<item itemtype="Connector" uid="Connector-1" startpinid="BcdTo7S-7-out0" endpinid="Seven Segment-8-pin_a" pointList="-272,-92,-248,-92" />
+
+<item itemtype="Connector" uid="Connector-2" startpinid="BcdTo7S-7-out1" endpinid="Seven Segment-8-pin_b" pointList="-272,-84,-248,-84" />
+
+<item itemtype="Connector" uid="Connector-3" startpinid="BcdTo7S-7-out2" endpinid="Seven Segment-8-pin_c" pointList="-272,-76,-248,-76" />
+
+<item itemtype="Connector" uid="Connector-4" startpinid="BcdTo7S-7-out3" endpinid="Seven Segment-8-pin_d" pointList="-272,-68,-248,-68" />
+
+<item itemtype="Connector" uid="Connector-5" startpinid="BcdTo7S-7-out4" endpinid="Seven Segment-8-pin_e" pointList="-272,-60,-248,-60" />
+
+<item itemtype="Connector" uid="Connector-6" startpinid="BcdTo7S-7-out5" endpinid="Seven Segment-8-pin_f" pointList="-272,-52,-248,-52" />
+
+<item itemtype="Connector" uid="Connector-7" startpinid="BcdTo7S-7-out6" endpinid="Seven Segment-8-pin_g" pointList="-272,-44,-248,-44" />
+
+<item itemtype="Connector" uid="Connector-8" startpinid="BcdTo7S-10-out0" endpinid="Seven Segment-9-pin_a" pointList="-128,-88,-104,-88" />
+
+<item itemtype="Connector" uid="Connector-9" startpinid="BcdTo7S-10-out1" endpinid="Seven Segment-9-pin_b" pointList="-128,-80,-104,-80" />
+
+<item itemtype="Connector" uid="Connector-10" startpinid="BcdTo7S-10-out2" endpinid="Seven Segment-9-pin_c" pointList="-128,-72,-104,-72" />
+
+<item itemtype="Connector" uid="Connector-11" startpinid="BcdTo7S-10-out3" endpinid="Seven Segment-9-pin_d" pointList="-128,-64,-104,-64" />
+
+<item itemtype="Connector" uid="Connector-12" startpinid="BcdTo7S-10-out4" endpinid="Seven Segment-9-pin_e" pointList="-128,-56,-104,-56" />
+
+<item itemtype="Connector" uid="Connector-13" startpinid="BcdTo7S-10-out5" endpinid="Seven Segment-9-pin_f" pointList="-128,-48,-104,-48" />
+
+<item itemtype="Connector" uid="Connector-14" startpinid="BcdTo7S-10-out6" endpinid="Seven Segment-9-pin_g" pointList="-128,-40,-104,-40" />
+
+<item itemtype="Connector" uid="Connector-16" startpinid="BcdTo7S-7-in0" endpinid="mega328PB-6-PORTB0" pointList="-320,-76,-344,-76,-344,56,-444,56,-444,-16" />
+
+<item itemtype="Connector" uid="Connector-17" startpinid="BcdTo7S-7-in1" endpinid="mega328PB-6-PORTB1" pointList="-320,-68,-340,-68,-340,64,-436,64,-436,-16" />
+
+<item itemtype="Connector" uid="Connector-18" startpinid="BcdTo7S-7-in2" endpinid="mega328PB-6-PORTB2" pointList="-320,-60,-336,-60,-336,72,-428,72,-428,-16" />
+
+<item itemtype="Connector" uid="Connector-19" startpinid="BcdTo7S-7-in3" endpinid="mega328PB-6-PORTB3" pointList="-320,-52,-332,-52,-332,80,-420,80,-420,-16" />
+
+<item itemtype="Connector" uid="Connector-20" startpinid="BcdTo7S-10-in0" endpinid="mega328PB-6-PORTB4" pointList="-176,-72,-196,-72,-196,88,-412,88,-412,-16" />
+
+<item itemtype="Connector" uid="Connector-21" startpinid="BcdTo7S-10-in1" endpinid="mega328PB-6-PORTB5" pointList="-176,-64,-192,-64,-192,96,-380,96,-380,-40,-388,-40" />
+
+<item itemtype="Connector" uid="Connector-22" startpinid="BcdTo7S-10-in2" endpinid="mega328PB-6-PORTB6" pointList="-176,-56,-188,-56,-188,104,-516,104,-516,-48,-492,-48" />
+
+<item itemtype="Connector" uid="Connector-23" startpinid="BcdTo7S-10-in3" endpinid="mega328PB-6-PORTB7" pointList="-176,-48,-184,-48,-184,112,-508,112,-508,-40,-492,-40" />
+
+<item itemtype="Connector" uid="Connector-27" startpinid="Ground-18-Gnd" endpinid="Seven Segment-8-pin_commona" pointList="-216,-24,-216,-36" />
+
+<item itemtype="Connector" uid="Connector-28" startpinid="Ground-19-Gnd" endpinid="Seven Segment-9-pin_commona" pointList="-72,-20,-72,-32" />
+
+<item itemtype="Connector" uid="Connector-33" startpinid="Fixed Voltage-25-outnod" endpinid="mega328PB-6-PORTD3" pointList="-520,-96,-492,-96" />
+
+<item itemtype="Connector" uid="Connector-41" startpinid="Node-28-1" endpinid="BcdTo7S-7-in4" pointList="-304,-132,-304,-108" />
+
+<item itemtype="Connector" uid="Connector-42" startpinid="mega328PB-6-PORTC1" endpinid="Node-28-0" pointList="-388,-96,-372,-96,-372,-132,-304,-132" />
+
+<item itemtype="Connector" uid="Connector-43" startpinid="Node-28-2" endpinid="BcdTo7S-10-in4" pointList="-304,-132,-160,-132,-160,-104" />
+
+</circuit>
