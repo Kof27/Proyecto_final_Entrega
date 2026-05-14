@@ -41,8 +41,7 @@ RESET:
     out SPL, r16
 
     ;-------------------------------------------
-    ; PORTB no se usa para la matriz en este ejemplo
-    ; Lo dejamos apagado
+    ; PORTB 
     ;-------------------------------------------
     ldi r16, 0xFF
     out DDRB, r16
@@ -85,9 +84,6 @@ RESET:
 
     ;-------------------------------------------
     ; Apagar matriz inicialmente
-    ;
-    ; Mandamos fila 8 al decodificador.
-    ; Como solo usas salidas 0 a 7, la salida 8 queda sin conexión.
     ;-------------------------------------------
     ldi r18, 0b01000010
     out PORTC, r18
@@ -210,6 +206,7 @@ MOSTRAR_PIXEL_0:
 
     ldi r18, 0b00000000
     out PORTD, r18
+
 
     ; Columna 4 = 0100
     ; PC2=S3, PC3=S2, PC4=S1, PC5=S0
