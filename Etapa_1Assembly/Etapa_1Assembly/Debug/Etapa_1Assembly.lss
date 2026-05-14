@@ -1,10 +1,10 @@
 
-AVRASM ver. 2.2.8  C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_1Assembly\Etapa_1Assembly\main.asm Tue May 12 19:09:30 2026
+AVRASM ver. 2.2.8  C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_1Assembly\Etapa_1Assembly\main.asm Thu May 14 09:01:47 2026
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328PBdef.inc'
-C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_1Assembly\Etapa_1Assembly\main.asm(7): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328PBdef.inc'
+C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_1Assembly\Etapa_1Assembly\main.asm(8): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328PBdef.inc'
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328PBdef.inc'
-C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_1Assembly\Etapa_1Assembly\main.asm(7): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328PBdef.inc'
+C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_1Assembly\Etapa_1Assembly\main.asm(8): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328PBdef.inc'
                                  
                                  ;
                                  
@@ -1552,6 +1552,7 @@ C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\P
                                  ; Etapa_1Assembly.asm
                                  ;
                                  ; Botón Start en PD3 usando interrupción INT1
+                                 ; Matriz 8x8 usando dos decodificadores 4:10
                                  ;
                                  
                                  .include "m328PBdef.inc"
@@ -1586,79 +1587,313 @@ C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\P
                                  
                                  
                                  ;***********************************************
+                                 ; Variables en memoria RAM
+                                 ;***********************************************
+                                 .dseg
+000100                           juego_activo: .byte 1
+000101                           pixel_actual: .byte 1
+                                 
+                                 ;***********************************************
+                                 ; Segmento de código
+                                 ;***********************************************
+                                 .cseg
+                                 
                                  .org 0x0000
-000000 c004                          rjmp RESET               ; Vector de reset
+000000 c01c                          rjmp RESET               ; Vector de reset
                                  
                                  .org 0x0004
-000004 c012                          rjmp START            ; Vector de interrupción externa INT1
+000004 c043                          rjmp START               ; Vector de interrupción externa INT1
+                                 
+                                 .org 0x001C
+00001c c033                          rjmp ISR_TIMER0_COMPA    ; Vector Timer0 Compare Match A
                                  
                                  ;***********************************************
                                  RESET:
                                  
-000005 ef0f                      	ldi r16, 0xFF
-000006 b904                          out DDRB, r16
-                                 
-000007 e022                      	ldi r18, 0b00000010
-000008 b927                      	out DDRC, r18
-000009 e022                      	ldi r18, 0b00000010
-00000a b928                      	out PORTC, r18
                                      ;-------------------------------------------
-                                     ; Configurar PD3 como entrada
-                                     ; PD3 será el botón Start
+                                     ; Inicializar Stack Pointer
                                      ;-------------------------------------------
-00000b 9853                          cbi DDRD, 3              ; PD3 como entrada
+00001d e008                          ldi r16, HIGH(RAMEND)
+00001e bf0e                          out SPH, r16
                                  
-                                     ; Activar resistencia pull-up interna en PD3
-                                     ; Sin presionar = 1
-                                     ; Presionado = 0
-00000c 985b                          cbi PORTD, 3
+00001f ef0f                          ldi r16, LOW(RAMEND)
+000020 bf0d                          out SPL, r16
                                  
                                      ;-------------------------------------------
-                                     ; Configurar INT1 por flanco de caída
-                                     ; ISC11 = 1
-                                     ; ISC10 = 0
+                                     ; PORTB no se usa para la matriz en este ejemplo
+                                     ; Lo dejamos apagado
+                                     ;-------------------------------------------
+000021 ef0f                          ldi r16, 0xFF
+000022 b904                          out DDRB, r16
+                                 
+000023 e000                          ldi r16, 0x00
+000024 b905                          out PORTB, r16
+                                 
+                                     ;-------------------------------------------
+                                     ; Configurar PORTC
                                      ;
-                                     ; Bits en EICRA:
-                                     ; ISC11 ISC10 controlan INT1
-                                     ; 1     0     = flanco de caída
+                                     ; Columnas:
+                                     ; PC2 -> S3
+                                     ; PC3 -> S2
+                                     ; PC4 -> S1
+                                     ; PC5 -> S0
+                                     ;
+                                     ; Filas:
+                                     ; PC6 -> S3 del decodificador de filas
                                      ;-------------------------------------------
-00000d e00c                          ldi r16, 0b00001100
-00000e 9300 0069                     sts EICRA, r16
+000025 e72e                          ldi r18, 0b01111110
+000026 b927                          out DDRC, r18
+                                     ;-------------------------------------------
+                                     ; Configurar PORTD
+                                     ;
+                                     ; Filas:
+                                     ; PD0 -> S2
+                                     ; PD1 -> S1
+                                     ; PD2 -> S0
+                                     ;
+                                     ; PD3 -> Start / INT1
+                                     ;-------------------------------------------
+000027 e027                          ldi r18, 0b00000111
+000028 b92a                          out DDRD, r18
+                                 
+                                     ; PD3 como entrada
+000029 9853                          cbi DDRD, 3
+                                 
+                                     ; Sin pull-up interna.
+00002a 985b                          cbi PORTD, 3
+                                 
+                                     ;-------------------------------------------
+                                     ; Apagar matriz inicialmente
+                                     ;
+                                     ; Mandamos fila 8 al decodificador.
+                                     ; Como solo usas salidas 0 a 7, la salida 8 queda sin conexión.
+                                     ;-------------------------------------------
+00002b e422                          ldi r18, 0b01000010
+00002c b928                          out PORTC, r18
+                                 
+00002d e020                          ldi r18, 0b00000000
+00002e b92b                          out PORTD, r18
+                                 
+                                     ;-------------------------------------------
+                                     ; Variables iniciales
+                                     ;-------------------------------------------
+00002f e000                          ldi r16, 0x00
+000030 9300 0100                     sts juego_activo, r16
+                                 
+000032 e000                          ldi r16, 0x00
+000033 9300 0101                     sts pixel_actual, r16
+                                 
+                                     ;-------------------------------------------
+                                     ; Configurar INT1 por flanco de subida
+                                     ;
+                                     ; ISC11 = 1
+                                     ; ISC10 = 1
+                                     ;
+                                     ; Esto significa que START se ejecuta cuando
+                                     ; PD3 pasa de 0 a 1.
+                                     ;-------------------------------------------
+000035 e00c                          ldi r16, 0b00001100
+000036 9300 0069                     sts EICRA, r16
                                  
                                      ;-------------------------------------------
                                      ; Limpiar bandera de INT1
-                                     ; INTF1 está en el bit 1 de EIFR
-                                     ; Se limpia escribiendo un 1
                                      ;-------------------------------------------
-000010 e002                          ldi r16, 0b00000010
-000011 9300 001c                     sts EIFR, r16
+000038 e002                          ldi r16, 0b00000010
+000039 9300 001c                     sts EIFR, r16
                                  
                                      ;-------------------------------------------
-                                     ; Habilitar interrupción INT1
-                                     ; INT1 está en el bit 1 de EIMSK
+                                     ; Habilitar INT1
                                      ;-------------------------------------------
-000013 e002                          ldi r16, 0b00000010
-000014 bb0d                          out EIMSK, r16
+00003b e002                          ldi r16, 0b00000010
+00003c bb0d                          out EIMSK, r16
+                                 
+                                     ;-------------------------------------------
+                                     ; Configurar Timer0 en modo CTC
+                                     ;-------------------------------------------
+00003d e002                          ldi r16, 0b00000010
+00003e bd04                          out TCCR0A, r16
+                                 
+                                     ; Valor de comparación.
+                                     ; Si parpadea mucho, puedes bajar este valor.
+00003f ef0a                          ldi r16, 250
+000040 bd07                          out OCR0A, r16
+                                 
+                                     ; Habilitar interrupción Timer0 Compare Match A
+000041 e002                          ldi r16, 0b00000010
+000042 9300 006e                     sts TIMSK0, r16
+                                 
+                                     ; Encender Timer0 con prescaler 64
+000044 e003                          ldi r16, 0b00000011
+000045 bd05                          out TCCR0B, r16
                                  
                                      ;-------------------------------------------
                                      ; Habilitar interrupciones globales
                                      ;-------------------------------------------
-000015 9478                          sei
+000046 9478                          sei
                                  
                                  ;***********************************************
                                  MAIN:
-                                     ; El programa queda esperando hasta que se presione Start
-000016 cfff                          rjmp MAIN
+000047 cfff                          rjmp MAIN
                                  
                                  ;***********************************************
                                  START:
                                  
-                                     ; Apagar inicialmente PORTB
-000017 e000                          ldi r16, 0x00
-000018 b905                          out PORTB, r16
-000019 e020                      	ldi r18, 0x00
-00001a b928                      	out PORTC, r18
+                                 	;mostrar numeros
+000048 9841                      	cbi PORTC, 1
                                  
+                                     ; Activar el juego/matriz
+000049 e001                          ldi r16, 0x01
+00004a 9300 0100                     sts juego_activo, r16
+                                 
+                                     ; Iniciar desde el primer pixel
+00004c e000                          ldi r16, 0x00
+00004d 9300 0101                     sts pixel_actual, r16
+                                 
+00004f 9518                          reti
+                                 
+                                 ;***********************************************
+                                 ISR_TIMER0_COMPA:
+                                 
+                                     ;-------------------------------------------
+                                     ; Primero revisamos si ya se presionó Start
+                                     ;-------------------------------------------
+000050 9100 0100                     lds r16, juego_activo
+000052 3001                          cpi r16, 0x01
+000053 f569                          brne APAGAR_MATRIZ
+                                 
+                                     ;-------------------------------------------
+                                     ; Leer cuál pixel toca mostrar
+                                     ;-------------------------------------------
+000054 9100 0101                     lds r16, pixel_actual
+                                 
+000056 3000                          cpi r16, 0
+000057 f029                          breq MOSTRAR_PIXEL_0
+                                 
+000058 3001                          cpi r16, 1
+000059 f061                          breq MOSTRAR_PIXEL_1
+                                 
+00005a 3002                          cpi r16, 2
+00005b f099                          breq MOSTRAR_PIXEL_2
+                                 
+00005c c020                          rjmp REINICIAR_PIXEL
+                                 
+                                 ;***********************************************
+                                 ; Pixel 0:
+                                 ; Fila 6, columna 4
+                                 ;***********************************************
+                                 MOSTRAR_PIXEL_0:
+                                 
+                                     ; Apagar momentáneamente la matriz
+00005d e420                          ldi r18, 0b01000000
+00005e b928                          out PORTC, r18
+                                 
+00005f e020                          ldi r18, 0b00000000
+000060 b92b                          out PORTD, r18
+                                 
+                                     ; Columna 4 = 0100
+                                     ; PC2=S3, PC3=S2, PC4=S1, PC5=S0
+                                     ;
+                                     ; 0100 significa:
+                                     ; S3=0, S2=1, S1=0, S0=0
+                                     ; Entonces se activa PC3.
+000061 e028                          ldi r18, 0b00001000
+000062 b928                          out PORTC, r18
+                                 
+                                     ; Fila 6 = 0110
+                                     ; PC6=S3, PD0=S2, PD1=S1, PD2=S0
+                                     ;
+                                     ; 0110 significa:
+                                     ; S3=0, S2=1, S1=1, S0=0
+                                     ; Entonces PD0=1, PD1=1, PD2=0.
+000063 e023                          ldi r18, 0b00000011
+000064 b92b                          out PORTD, r18
+                                 
+000065 c012                          rjmp AVANZAR_PIXEL
+                                 
+                                 ;***********************************************
+                                 ; Pixel 1:
+                                 ; Fila 7, columna 3
+                                 ;***********************************************
+                                 MOSTRAR_PIXEL_1:
+                                 
+                                     ; Apagar momentáneamente la matriz
+000066 e420                          ldi r18, 0b01000000
+000067 b928                          out PORTC, r18
+                                 
+000068 e020                          ldi r18, 0b00000000
+000069 b92b                          out PORTD, r18
+                                 
+                                     ; Columna 3 = 0011
+                                     ; S3=0, S2=0, S1=1, S0=1
+                                     ; PC4=1, PC5=1
+00006a e320                          ldi r18, 0b00110000
+00006b b928                          out PORTC, r18
+                                 
+                                     ; Fila 7 = 0111
+                                     ; S3=0, S2=1, S1=1, S0=1
+                                     ; PD0=1, PD1=1, PD2=1
+00006c e027                          ldi r18, 0b00000111
+00006d b92b                          out PORTD, r18
+                                 
+00006e c009                          rjmp AVANZAR_PIXEL
+                                 
+                                 ;***********************************************
+                                 ; Pixel 2:
+                                 ; Fila 7, columna 5
+                                 ;***********************************************
+                                 MOSTRAR_PIXEL_2:
+                                 
+                                     ; Apagar momentáneamente la matriz
+00006f e420                          ldi r18, 0b01000000
+000070 b928                          out PORTC, r18
+                                 
+000071 e020                          ldi r18, 0b00000000
+000072 b92b                          out PORTD, r18
+                                 
+                                     ; Columna 5 = 0101
+                                     ; S3=0, S2=1, S1=0, S0=1
+                                     ; PC3=1, PC5=1
+000073 e228                          ldi r18, 0b00101000
+000074 b928                          out PORTC, r18
+                                 
+                                     ; Fila 7 = 0111
+                                     ; PD0=1, PD1=1, PD2=1
+000075 e027                          ldi r18, 0b00000111
+000076 b92b                          out PORTD, r18
+                                 
+000077 c000                          rjmp AVANZAR_PIXEL
+                                 
+                                 ;***********************************************
+                                 AVANZAR_PIXEL:
+                                 
+                                     ; pixel_actual = pixel_actual + 1
+000078 9100 0101                     lds r16, pixel_actual
+00007a 9503                          inc r16
+                                 
+                                     ; Si pixel_actual < 3, guardar normal
+00007b 3003                          cpi r16, 3
+00007c f008                          brlo GUARDAR_PIXEL
+                                 
+                                 REINICIAR_PIXEL:
+                                     ; Si llegó a 3, volver a 0
+00007d e000                          ldi r16, 0
+                                 
+                                 GUARDAR_PIXEL:
+00007e 9300 0101                     sts pixel_actual, r16
+000080 c004                          rjmp FIN_TIMER
+                                 
+                                 ;***********************************************
+                                 APAGAR_MATRIZ:
+                                 
+                                     ; Mandar fila 8 para que no se vea nada
+000081 e422                          ldi r18, 0b01000010
+000082 b928                          out PORTC, r18
+                                 
+000083 e020                          ldi r18, 0b00000000
+000084 b92b                          out PORTD, r18
+                                 
+                                 ;***********************************************
+                                 FIN_TIMER:
 
 
 RESOURCE USE INFORMATION
@@ -1678,7 +1913,7 @@ counted separately from r26..r31 here.
 "ATmega328PB" register use summary:
 x  :   0 y  :   0 z  :   0 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :   0 
 r5 :   0 r6 :   0 r7 :   0 r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 
-r13:   0 r14:   0 r15:   0 r16:  10 r17:   0 r18:   6 r19:   0 r20:   0 
+r13:   0 r14:   0 r15:   0 r16:  41 r17:   0 r18:  36 r19:   0 r20:   0 
 r21:   0 r22:   0 r23:   0 r24:   0 r25:   0 r26:   0 r27:   0 r28:   0 
 r29:   0 r30:   0 r31:   0 
 Registers used: 2 out of 35 (5.7%)
@@ -1686,30 +1921,30 @@ Registers used: 2 out of 35 (5.7%)
 "ATmega328PB" instruction use summary:
 .lds  :   0 .sts  :   0 adc   :   0 add   :   0 adiw  :   0 and   :   0 
 andi  :   0 asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0 
-brcc  :   0 brcs  :   0 break :   0 breq  :   0 brge  :   0 brhc  :   0 
-brhs  :   0 brid  :   0 brie  :   0 brlo  :   0 brlt  :   0 brmi  :   0 
-brne  :   0 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
-brvs  :   0 bset  :   0 bst   :   0 call  :   0 cbi   :   2 cbr   :   0 
+brcc  :   0 brcs  :   0 break :   0 breq  :   3 brge  :   0 brhc  :   0 
+brhs  :   0 brid  :   0 brie  :   0 brlo  :   1 brlt  :   0 brmi  :   0 
+brne  :   1 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
+brvs  :   0 bset  :   0 bst   :   0 call  :   0 cbi   :   3 cbr   :   0 
 clc   :   0 clh   :   0 cli   :   0 cln   :   0 clr   :   0 cls   :   0 
 clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   0 cpc   :   0 
-cpi   :   0 cpse  :   0 dec   :   0 eor   :   0 fmul  :   0 fmuls :   0 
-fmulsu:   0 icall :   0 ijmp  :   0 in    :   0 inc   :   0 jmp   :   0 
-ld    :   0 ldd   :   0 ldi   :   8 lds   :   0 lpm   :   0 lsl   :   0 
+cpi   :   5 cpse  :   0 dec   :   0 eor   :   0 fmul  :   0 fmuls :   0 
+fmulsu:   0 icall :   0 ijmp  :   0 in    :   0 inc   :   1 jmp   :   0 
+ld    :   0 ldd   :   0 ldi   :  34 lds   :   3 lpm   :   0 lsl   :   0 
 lsr   :   0 mov   :   0 movw  :   0 mul   :   0 muls  :   0 mulsu :   0 
-neg   :   0 nop   :   0 or    :   0 ori   :   0 out   :   6 pop   :   0 
-push  :   0 rcall :   0 ret   :   0 reti  :   1 rjmp  :   3 rol   :   0 
+neg   :   0 nop   :   0 or    :   0 ori   :   0 out   :  26 pop   :   0 
+push  :   0 rcall :   0 ret   :   0 reti  :   2 rjmp  :   9 rol   :   0 
 ror   :   0 sbc   :   0 sbci  :   0 sbi   :   0 sbic  :   0 sbis  :   0 
 sbiw  :   0 sbr   :   0 sbrc  :   0 sbrs  :   0 sec   :   0 seh   :   0 
 sei   :   1 sen   :   0 ser   :   0 ses   :   0 set   :   0 sev   :   0 
-sez   :   0 sleep :   0 spm   :   0 st    :   0 std   :   0 sts   :   2 
+sez   :   0 sleep :   0 spm   :   0 st    :   0 std   :   0 sts   :   8 
 sub   :   0 subi  :   0 swap  :   0 tst   :   0 wdr   :   0 
-Instructions used: 7 out of 113 (6.2%)
+Instructions used: 13 out of 113 (11.5%)
 
 "ATmega328PB" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x000038     50      0     50   32768   0.2%
-[.dseg] 0x000100 0x000100      0      0      0    2048   0.0%
+[.cseg] 0x000000 0x00010c    216      0    216   32768   0.7%
+[.dseg] 0x000100 0x000102      0      2      2    2048   0.1%
 [.eseg] 0x000000 0x000000      0      0      0    1024   0.0%
 
 Assembly complete, 0 errors, 0 warnings

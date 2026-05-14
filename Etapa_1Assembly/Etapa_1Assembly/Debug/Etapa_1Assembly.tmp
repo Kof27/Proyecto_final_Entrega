@@ -22,8 +22,19 @@
   <FILE>Etapa_1Assembly.lss</FILE>
  </OUTPUT_FILES>
  <LABELS>
-  <RESET><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_1Assembly\Etapa_1Assembly\main.asm</FILE><LINE>17</LINE></RESET>
-  <START><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_1Assembly\Etapa_1Assembly\main.asm</FILE><LINE>75</LINE></START>
-  <MAIN><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_1Assembly\Etapa_1Assembly\main.asm</FILE><LINE>70</LINE></MAIN>
+  <juego_activo><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_1Assembly\Etapa_1Assembly\main.asm</FILE><LINE>14</LINE></juego_activo>
+  <pixel_actual><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_1Assembly\Etapa_1Assembly\main.asm</FILE><LINE>15</LINE></pixel_actual>
+  <RESET><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_1Assembly\Etapa_1Assembly\main.asm</FILE><LINE>32</LINE></RESET>
+  <START><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_1Assembly\Etapa_1Assembly\main.asm</FILE><LINE>160</LINE></START>
+  <ISR_TIMER0_COMPA><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_1Assembly\Etapa_1Assembly\main.asm</FILE><LINE>176</LINE></ISR_TIMER0_COMPA>
+  <MAIN><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_1Assembly\Etapa_1Assembly\main.asm</FILE><LINE>156</LINE></MAIN>
+  <APAGAR_MATRIZ><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_1Assembly\Etapa_1Assembly\main.asm</FILE><LINE>307</LINE></APAGAR_MATRIZ>
+  <MOSTRAR_PIXEL_0><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_1Assembly\Etapa_1Assembly\main.asm</FILE><LINE>205</LINE></MOSTRAR_PIXEL_0>
+  <MOSTRAR_PIXEL_1><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_1Assembly\Etapa_1Assembly\main.asm</FILE><LINE>238</LINE></MOSTRAR_PIXEL_1>
+  <MOSTRAR_PIXEL_2><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_1Assembly\Etapa_1Assembly\main.asm</FILE><LINE>265</LINE></MOSTRAR_PIXEL_2>
+  <REINICIAR_PIXEL><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_1Assembly\Etapa_1Assembly\main.asm</FILE><LINE>298</LINE></REINICIAR_PIXEL>
+  <AVANZAR_PIXEL><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_1Assembly\Etapa_1Assembly\main.asm</FILE><LINE>288</LINE></AVANZAR_PIXEL>
+  <GUARDAR_PIXEL><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_1Assembly\Etapa_1Assembly\main.asm</FILE><LINE>302</LINE></GUARDAR_PIXEL>
+  <FIN_TIMER><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_1Assembly\Etapa_1Assembly\main.asm</FILE><LINE>317</LINE></FIN_TIMER>
  </LABELS>
 </ASSEMBLER_INFO>
