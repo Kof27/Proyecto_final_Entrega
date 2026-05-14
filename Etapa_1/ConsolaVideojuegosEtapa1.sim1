@@ -1,12 +1,12 @@
 <circuit version="1.1.0-SR2" rev="260312" stepSize="1000000" stepsPS="1000000" NLsteps="100000" reaStep="1000000" animate="1" >
 
-<item itemtype="MCU" CircId="mega328PB-6" mainComp="false" Show_id="true" Show_Val="false" Pos="-484,-112" rotation="0" hflip="1" vflip="1" label="mega328PB-6" idLabPos="0,-20" labelrot="0" valLabPos="-16,20" valLabRot="0" Frequency="16 MHz" Program="../Etapa_1Assembly/Etapa_1Assembly/Debug/Etapa_1Assembly.hex" Auto_Load="false" saveEepr="true" Ext_Osc="false" Wdt_enabled="false" Clk_Out="false" MainMcu="true" SerialMon="-1" />
+<item itemtype="MCU" CircId="mega328PB-6" mainComp="false" Show_id="true" Show_Val="false" Pos="-484,-112" rotation="0" hflip="1" vflip="1" label="mega328PB-6" idLabPos="0,-20" labelrot="0" valLabPos="-16,20" valLabRot="0" Frequency="16 MHz" Program="../Etapa_1Assembly/Etapa_1Assembly/Debug/Etapa_1Assembly.hex" Auto_Load="false" saveEepr="true" Ext_Osc="false" Wdt_enabled="false" Clk_Out="false" MainMcu="true" eeprom="28,192,255,255,255,255,255,255,67,192,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,51,192,8,224,14,191,15,239,13,191,15,239,4,185,0,224,5,185,46,231,39,185,39,224,42,185,83,152,91,152,34,228,40,185,32,224,43,185,0,224,0,147,0,1,0,224,0,147,1,1,12,224,0,147,105,0,2,224,0,147,28,0,2,224,13,187,2,224,4,189,10,239,7,189,2,224,0,147,110,0,3,224,5,189,120,148,255,207,65,152,1,224,0,147,0,1,0,224,0,147,1,1,24,149,0,145,0,1,1,48,105,245,0,145,1,1,0,48,41,240,1,48,97,240,2,48,153,240,32,192,32,228,40,185,32,224,43,185,40,224,40,185,35,224,43,185,18,192,32,228,40,185,32,224,43,185,32,227,40,185,39,224,43,185,9,192,32,228,40,185,32,224,43,185,40,226,40,185,39,224,43,185,0,192,0,145,1,1,3,149,3,48,8,240,0,224,0,147,1,1,4,192,34,228,40,185,32,224,43,185,24,149," SerialMon="-1" />
 
 <item itemtype="BcdTo7S" CircId="BcdTo7S-7" mainComp="false" Show_id="false" Show_Val="false" Pos="-296,-68" rotation="0" hflip="1" vflip="1" label="BcdTo7S-7" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Input_High_V="2.5 V" Input_Low_V="2.5 V" Input_Imped="1000 MΩ" Invert_Inputs="false" Out_High_V="5 V" Out_Low_V="0 V" Out_Imped="40 Ω" Inverted="false" Open_Collector="false" pd_n="1 _Gates" Tpd_ps="10 ns" Tr_ps="3 ns" Tf_ps="4 ns" />
 
-<item itemtype="Seven Segment" CircId="Seven Segment-8" mainComp="false" Show_id="false" Show_Val="false" Pos="-224,-68" rotation="0" hflip="1" vflip="1" label="Seven Segment-8" idLabPos="20,-44" labelrot="0" valLabPos="-16,20" valLabRot="0" Color="Yellow" NumDisplays="1" Vertical_Pins="false" CommonCathode="true" Threshold="2.4 V" MaxCurrent="20 mA" Resistance="1 Ω" />
+<item itemtype="Seven Segment" CircId="Seven Segment-8" mainComp="false" Show_id="false" Show_Val="false" Pos="-224,-68" rotation="0" hflip="1" vflip="1" label="Seven Segment-8" idLabPos="20,-44" labelrot="0" valLabPos="-16,20" valLabRot="0" Color="Green" NumDisplays="1" Vertical_Pins="false" CommonCathode="true" Threshold="3 V" MaxCurrent="50 mA" Resistance="1 Ω" />
 
-<item itemtype="Seven Segment" CircId="Seven Segment-9" mainComp="false" Show_id="false" Show_Val="false" Pos="-80,-64" rotation="0" hflip="1" vflip="1" label="Seven Segment-9" idLabPos="20,-44" labelrot="0" valLabPos="-16,20" valLabRot="0" Color="Yellow" NumDisplays="1" Vertical_Pins="false" CommonCathode="true" Threshold="2.4 V" MaxCurrent="20 mA" Resistance="1 Ω" />
+<item itemtype="Seven Segment" CircId="Seven Segment-9" mainComp="false" Show_id="false" Show_Val="false" Pos="-80,-64" rotation="0" hflip="1" vflip="1" label="Seven Segment-9" idLabPos="20,-44" labelrot="0" valLabPos="-16,20" valLabRot="0" Color="Green" NumDisplays="1" Vertical_Pins="false" CommonCathode="true" Threshold="2.4 V" MaxCurrent="50 mA" Resistance="1 Ω" />
 
 <item itemtype="BcdTo7S" CircId="BcdTo7S-10" mainComp="false" Show_id="false" Show_Val="false" Pos="-152,-64" rotation="0" hflip="1" vflip="1" label="BcdTo7S-10" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Input_High_V="2.5 V" Input_Low_V="2.5 V" Input_Imped="1000 MΩ" Invert_Inputs="false" Out_High_V="5 V" Out_Low_V="0 V" Out_Imped="40 Ω" Inverted="false" Open_Collector="false" pd_n="1 _Gates" Tpd_ps="10 ns" Tr_ps="3 ns" Tf_ps="4 ns" />
 
@@ -16,47 +16,13 @@
 
 <item itemtype="Fixed Voltage" CircId="Fixed Voltage-25" mainComp="false" Show_id="false" Show_Val="false" Pos="-536,-96" rotation="0" hflip="1" vflip="1" label="Fixed Voltage-25" idLabPos="-64,-24" labelrot="0" valLabPos="-16,8" valLabRot="0" Voltage="5 V" Out="true" />
 
-<item itemtype="LedMatrix" CircId="LedMatrix-87" mainComp="false" Show_id="false" Show_Val="false" Pos="-388,-364" rotation="0" hflip="1" vflip="1" label="LedMatrix-87" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Color="Green" Rows="8" Cols="8" Vertical_Pins="false" Threshold="2.4 V" MaxCurrent="20 mA" Resistance="0.6 Ω" />
+<item itemtype="LedMatrix" CircId="LedMatrix-87" mainComp="false" Show_id="false" Show_Val="false" Pos="-388,-364" rotation="0" hflip="1" vflip="1" label="LedMatrix-87" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Color="Green" Rows="8" Cols="8" Vertical_Pins="false" Threshold="3 V" MaxCurrent="10 mA" Resistance="0.6 Ω" />
 
-<item itemtype="BcdToDec" CircId="BcdToDec-90" mainComp="false" Show_id="false" Show_Val="false" Pos="-356,-244" rotation="270" hflip="1" vflip="1" label="BcdToDec-90" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" _16_Bits="false" Input_High_V="2.5 V" Input_Low_V="2.5 V" Input_Imped="1000 MΩ" Invert_Inputs="false" Out_High_V="5 V" Out_Low_V="0 V" Out_Imped="40 Ω" Inverted="false" Open_Collector="false" pd_n="1 _Gates" Tpd_ps="10 ns" Tr_ps="3 ns" Tf_ps="4 ns" />
+<item itemtype="BcdToDec" CircId="BcdToDec-90" mainComp="false" Show_id="false" Show_Val="false" Pos="-356,-244" rotation="270" hflip="1" vflip="1" label="BcdToDec-90" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" _16_Bits="false" Input_High_V="2.5 V" Input_Low_V="2.5 V" Input_Imped="1000 MΩ" Invert_Inputs="false" Out_High_V="5 V" Out_Low_V="0 V" Out_Imped="40 Ω" Inverted="true" Open_Collector="false" pd_n="1 _Gates" Tpd_ps="10 µs" Tr_ps="3 ns" Tf_ps="4 ns" />
 
-<item itemtype="BcdToDec" CircId="BcdToDec-106" mainComp="false" Show_id="false" Show_Val="false" Pos="-452,-332" rotation="360" hflip="1" vflip="1" label="BcdToDec-106" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" _16_Bits="false" Input_High_V="2.5 V" Input_Low_V="2.5 V" Input_Imped="1000 MΩ" Invert_Inputs="false" Out_High_V="5 V" Out_Low_V="0 V" Out_Imped="40 Ω" Inverted="false" Open_Collector="false" pd_n="1 _Gates" Tpd_ps="10 ns" Tr_ps="3 ns" Tf_ps="4 ns" />
+<item itemtype="BcdToDec" CircId="BcdToDec-106" mainComp="false" Show_id="false" Show_Val="false" Pos="-452,-332" rotation="360" hflip="1" vflip="1" label="BcdToDec-106" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" _16_Bits="false" Input_High_V="2.5 V" Input_Low_V="2.5 V" Input_Imped="1000 MΩ" Invert_Inputs="false" Out_High_V="5 V" Out_Low_V="0 V" Out_Imped="40 Ω" Inverted="false" Open_Collector="false" pd_n="1 _Gates" Tpd_ps="10 µs" Tr_ps="3 ns" Tf_ps="4 ns" />
 
 <item itemtype="Socket" CircId="Socket-107" mainComp="false" Show_id="false" Show_Val="false" Pos="-444,-160" rotation="270" hflip="1" vflip="1" label="Socket-107" idLabPos="-16,-44" labelrot="0" valLabPos="-16,20" valLabRot="0" Size="4 _Pins" />
-
-<item itemtype="Clock" CircId="Clock-75" mainComp="false" Show_id="false" Show_Val="false" Pos="104,172" rotation="270" hflip="1" vflip="1" label="Clock-75" idLabPos="-64,-24" labelrot="0" valLabPos="-16,8" valLabRot="0" Out="true" Running="true" Voltage="5 V" Freq="1 Hz" Always_On="false" />
-
-<item itemtype="Clock" CircId="Clock-74" mainComp="false" Show_id="false" Show_Val="false" Pos="88,172" rotation="270" hflip="1" vflip="1" label="Clock-74" idLabPos="-64,-24" labelrot="0" valLabPos="-16,8" valLabRot="0" Out="true" Running="true" Voltage="5 V" Freq="1 Hz" Always_On="false" />
-
-<item itemtype="Clock" CircId="Clock-73" mainComp="false" Show_id="false" Show_Val="false" Pos="96,220" rotation="270" hflip="1" vflip="1" label="Clock-73" idLabPos="-64,-24" labelrot="0" valLabPos="-16,8" valLabRot="0" Out="true" Running="true" Voltage="5 V" Freq="1 Hz" Always_On="false" />
-
-<item itemtype="Clock" CircId="Clock-70" mainComp="false" Show_id="false" Show_Val="false" Pos="4,216" rotation="270" hflip="1" vflip="1" label="Clock-70" idLabPos="-64,-24" labelrot="0" valLabPos="-16,8" valLabRot="0" Out="true" Running="true" Voltage="5 V" Freq="5 Hz" Always_On="false" />
-
-<item itemtype="Clock" CircId="Clock-69" mainComp="false" Show_id="false" Show_Val="false" Pos="4,164" rotation="270" hflip="1" vflip="1" label="Clock-69" idLabPos="-64,-24" labelrot="0" valLabPos="-16,8" valLabRot="0" Out="true" Running="true" Voltage="5 V" Freq="5 Hz" Always_On="false" />
-
-<item itemtype="Fixed Voltage" CircId="Fixed Voltage-68" mainComp="false" Show_id="false" Show_Val="false" Pos="-56,212" rotation="-90" hflip="1" vflip="1" label="Fixed Voltage-68" idLabPos="-64,-24" labelrot="0" valLabPos="-16,8" valLabRot="0" Voltage="5 V" Out="false" />
-
-<item itemtype="Fixed Voltage" CircId="Fixed Voltage-65" mainComp="false" Show_id="false" Show_Val="false" Pos="80,220" rotation="-90" hflip="1" vflip="1" label="Fixed Voltage-65" idLabPos="-64,-24" labelrot="0" valLabPos="-16,8" valLabRot="0" Voltage="5 V" Out="true" />
-
-<item itemtype="Fixed Voltage" CircId="Fixed Voltage-64" mainComp="false" Show_id="false" Show_Val="false" Pos="-48,164" rotation="-90" hflip="1" vflip="1" label="Fixed Voltage-64" idLabPos="-64,-24" labelrot="0" valLabPos="-16,8" valLabRot="0" Voltage="5 V" Out="false" />
-
-<item itemtype="Fixed Voltage" CircId="Fixed Voltage-62" mainComp="false" Show_id="false" Show_Val="false" Pos="112,220" rotation="-90" hflip="1" vflip="1" label="Fixed Voltage-62" idLabPos="-64,-24" labelrot="0" valLabPos="-16,8" valLabRot="0" Voltage="5 V" Out="true" />
-
-<item itemtype="Fixed Voltage" CircId="Fixed Voltage-61" mainComp="false" Show_id="false" Show_Val="false" Pos="-16,164" rotation="-90" hflip="1" vflip="1" label="Fixed Voltage-61" idLabPos="-64,-24" labelrot="0" valLabPos="-16,8" valLabRot="0" Voltage="5 V" Out="false" />
-
-<item itemtype="Fixed Voltage" CircId="Fixed Voltage-58" mainComp="false" Show_id="false" Show_Val="false" Pos="-24,212" rotation="-90" hflip="1" vflip="1" label="Fixed Voltage-58" idLabPos="-64,-24" labelrot="0" valLabPos="-16,8" valLabRot="0" Voltage="5 V" Out="false" />
-
-<item itemtype="Fixed Voltage" CircId="Fixed Voltage-56" mainComp="false" Show_id="false" Show_Val="false" Pos="64,220" rotation="-90" hflip="1" vflip="1" label="Fixed Voltage-56" idLabPos="-64,-24" labelrot="0" valLabPos="-16,8" valLabRot="0" Voltage="5 V" Out="true" />
-
-<item itemtype="Fixed Voltage" CircId="Fixed Voltage-54" mainComp="false" Show_id="false" Show_Val="false" Pos="-40,212" rotation="-90" hflip="1" vflip="1" label="Fixed Voltage-54" idLabPos="-64,-24" labelrot="0" valLabPos="-16,8" valLabRot="0" Voltage="5 V" Out="false" />
-
-<item itemtype="Fixed Voltage" CircId="Fixed Voltage-53" mainComp="false" Show_id="false" Show_Val="false" Pos="120,172" rotation="-90" hflip="1" vflip="1" label="Fixed Voltage-53" idLabPos="-64,-24" labelrot="0" valLabPos="-16,8" valLabRot="0" Voltage="5 V" Out="true" />
-
-<item itemtype="Fixed Voltage" CircId="Fixed Voltage-52" mainComp="false" Show_id="false" Show_Val="false" Pos="72,172" rotation="-90" hflip="1" vflip="1" label="Fixed Voltage-52" idLabPos="-64,-24" labelrot="0" valLabPos="-16,8" valLabRot="0" Voltage="5 V" Out="true" />
-
-<item itemtype="LedMatrix" CircId="LedMatrix-51" mainComp="false" Show_id="false" Show_Val="false" Pos="64,68" rotation="0" hflip="1" vflip="1" label="LedMatrix-51" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Color="Yellow" Rows="8" Cols="8" Vertical_Pins="false" Threshold="2.4 V" MaxCurrent="20 mA" Resistance="0.6 Ω" />
-
-<item itemtype="Fixed Voltage" CircId="Fixed Voltage-50" mainComp="false" Show_id="false" Show_Val="false" Pos="-32,164" rotation="-90" hflip="1" vflip="1" label="Fixed Voltage-50" idLabPos="-64,-24" labelrot="0" valLabPos="-16,8" valLabRot="0" Voltage="5 V" Out="false" />
 
 <item itemtype="Socket" CircId="Socket-108" mainComp="false" Show_id="false" Show_Val="false" Pos="-340,-184" rotation="630" hflip="1" vflip="1" label="Socket-108" idLabPos="-16,-44" labelrot="0" valLabPos="-16,20" valLabRot="0" Size="4 _Pins" />
 
@@ -162,38 +128,6 @@
 
 <item itemtype="Connector" uid="Connector-111" startpinid="Socket-107-pin10" endpinid="BcdToDec-106-in2" pointList="-452,-160,-452,-268,-492,-268,-492,-324,-476,-324" />
 
-<item itemtype="Connector" uid="Connector-71" startpinid="Clock-73-outnod" endpinid="LedMatrix-51-pinCol4" pointList="96,204,96,140" />
-
-<item itemtype="Connector" uid="Connector-70" startpinid="Clock-74-outnod" endpinid="LedMatrix-51-pinCol3" pointList="88,156,88,140" />
-
-<item itemtype="Connector" uid="Connector-69" startpinid="Clock-75-outnod" endpinid="LedMatrix-51-pinCol5" pointList="104,156,104,140" />
-
-<item itemtype="Connector" uid="Connector-66" startpinid="Clock-70-outnod" endpinid="LedMatrix-51-pinRow7" pointList="4,200,16,200,16,124,48,124" />
-
-<item itemtype="Connector" uid="Connector-65" startpinid="Clock-69-outnod" endpinid="LedMatrix-51-pinRow6" pointList="4,148,4,116,48,116" />
-
-<item itemtype="Connector" uid="Connector-64" startpinid="Fixed Voltage-68-outnod" endpinid="LedMatrix-51-pinRow0" pointList="-56,196,-56,68,48,68" />
-
-<item itemtype="Connector" uid="Connector-62" startpinid="Fixed Voltage-52-outnod" endpinid="LedMatrix-51-pinCol1" pointList="72,156,72,140" />
-
-<item itemtype="Connector" uid="Connector-61" startpinid="LedMatrix-51-pinCol6" endpinid="Fixed Voltage-62-outnod" pointList="112,140,112,204" />
-
-<item itemtype="Connector" uid="Connector-60" startpinid="Fixed Voltage-54-outnod" endpinid="LedMatrix-51-pinRow2" pointList="-40,196,-40,84,48,84" />
-
-<item itemtype="Connector" uid="Connector-57" startpinid="Fixed Voltage-64-outnod" endpinid="LedMatrix-51-pinRow1" pointList="-48,148,-48,76,48,76" />
-
-<item itemtype="Connector" uid="Connector-55" startpinid="Fixed Voltage-58-outnod" endpinid="LedMatrix-51-pinRow4" pointList="-24,196,-24,100,48,100" />
-
-<item itemtype="Connector" uid="Connector-54" startpinid="Fixed Voltage-61-outnod" endpinid="LedMatrix-51-pinRow5" pointList="-16,148,-16,108,48,108" />
-
-<item itemtype="Connector" uid="Connector-51" startpinid="Fixed Voltage-65-outnod" endpinid="LedMatrix-51-pinCol2" pointList="80,204,80,140" />
-
-<item itemtype="Connector" uid="Connector-50" startpinid="Fixed Voltage-56-outnod" endpinid="LedMatrix-51-pinCol0" pointList="64,204,64,140" />
-
-<item itemtype="Connector" uid="Connector-48" startpinid="Fixed Voltage-50-outnod" endpinid="LedMatrix-51-pinRow3" pointList="-32,148,-32,92,48,92" />
-
-<item itemtype="Connector" uid="Connector-47" startpinid="LedMatrix-51-pinCol7" endpinid="Fixed Voltage-53-outnod" pointList="120,140,120,156" />
-
 <item itemtype="Connector" uid="Connector-119" startpinid="Socket-107-pin9" endpinid="BcdToDec-106-in1" pointList="-460,-160,-460,-260,-500,-260,-500,-332,-476,-332" />
 
 <item itemtype="Connector" uid="Connector-120" startpinid="Socket-107-pin8" endpinid="BcdToDec-106-in0" pointList="-468,-160,-468,-252,-508,-252,-508,-340,-476,-340" />
@@ -206,12 +140,12 @@
 
 <item itemtype="Connector" uid="Connector-126" startpinid="BcdToDec-90-in0" endpinid="Socket-108-pin8" pointList="-364,-220,-364,-184" />
 
-<item itemtype="Connector" uid="Connector-127" startpinid="mega328PB-6-PORTC2" endpinid="Socket-108-pin3" pointList="-412,-120,-412,-140,-340,-140,-340,-176" />
-
-<item itemtype="Connector" uid="Connector-128" startpinid="mega328PB-6-PORTC3" endpinid="Socket-108-pin2" pointList="-420,-120,-420,-148,-348,-148,-348,-176" />
+<item itemtype="Connector" uid="Connector-130" startpinid="mega328PB-6-PORTC5" endpinid="Socket-108-pin0" pointList="-436,-120,-436,-164,-364,-164,-364,-176" />
 
 <item itemtype="Connector" uid="Connector-129" startpinid="mega328PB-6-PORTC4" endpinid="Socket-108-pin1" pointList="-428,-120,-428,-156,-356,-156,-356,-176" />
 
-<item itemtype="Connector" uid="Connector-130" startpinid="mega328PB-6-PORTC5" endpinid="Socket-108-pin0" pointList="-436,-120,-436,-164,-364,-164,-364,-176" />
+<item itemtype="Connector" uid="Connector-128" startpinid="mega328PB-6-PORTC3" endpinid="Socket-108-pin2" pointList="-420,-120,-420,-148,-348,-148,-348,-176" />
+
+<item itemtype="Connector" uid="Connector-127" startpinid="mega328PB-6-PORTC2" endpinid="Socket-108-pin3" pointList="-412,-120,-412,-140,-340,-140,-340,-176" />
 
 </circuit>
