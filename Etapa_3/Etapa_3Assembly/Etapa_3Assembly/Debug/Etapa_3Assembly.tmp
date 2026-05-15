@@ -1,0 +1,61 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.2.8</VERSION>
+ <DEVICE>"ATmega328PB"</DEVICE>
+ <WORKING_DIR>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_3\Etapa_3Assembly\Etapa_3Assembly\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc</DIR>
+  <DIR>C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
+  <DIR></DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_3\Etapa_3Assembly\Etapa_3Assembly\main.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328PBdef.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_3\Etapa_3Assembly\Etapa_3Assembly\Debug\Etapa_3Assembly.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>Etapa_3Assembly.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>Etapa_3Assembly.map</FILE>
+  <FILE>Etapa_3Assembly.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <juego_activo><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_3\Etapa_3Assembly\Etapa_3Assembly\main.asm</FILE><LINE>14</LINE></juego_activo>
+  <pixel_actual><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_3\Etapa_3Assembly\Etapa_3Assembly\main.asm</FILE><LINE>15</LINE></pixel_actual>
+  <unidades><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_3\Etapa_3Assembly\Etapa_3Assembly\main.asm</FILE><LINE>16</LINE></unidades>
+  <decenas><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_3\Etapa_3Assembly\Etapa_3Assembly\main.asm</FILE><LINE>17</LINE></decenas>
+  <contador><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_3\Etapa_3Assembly\Etapa_3Assembly\main.asm</FILE><LINE>18</LINE></contador>
+  <pos_carro><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_3\Etapa_3Assembly\Etapa_3Assembly\main.asm</FILE><LINE>19</LINE></pos_carro>
+  <boton_lock><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_3\Etapa_3Assembly\Etapa_3Assembly\main.asm</FILE><LINE>20</LINE></boton_lock>
+  <RESET><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_3\Etapa_3Assembly\Etapa_3Assembly\main.asm</FILE><LINE>37</LINE></RESET>
+  <START><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_3\Etapa_3Assembly\Etapa_3Assembly\main.asm</FILE><LINE>171</LINE></START>
+  <ISR_TIMER0_COMPA><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_3\Etapa_3Assembly\Etapa_3Assembly\main.asm</FILE><LINE>204</LINE></ISR_TIMER0_COMPA>
+  <MAIN><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_3\Etapa_3Assembly\Etapa_3Assembly\main.asm</FILE><LINE>167</LINE></MAIN>
+  <MOSTRAR_DISPLAY><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_3\Etapa_3Assembly\Etapa_3Assembly\main.asm</FILE><LINE>369</LINE></MOSTRAR_DISPLAY>
+  <APAGAR_MATRIZ><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_3\Etapa_3Assembly\Etapa_3Assembly\main.asm</FILE><LINE>293</LINE></APAGAR_MATRIZ>
+  <LEER_BOTONES><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_3\Etapa_3Assembly\Etapa_3Assembly\main.asm</FILE><LINE>400</LINE></LEER_BOTONES>
+  <ACTUALIZAR_CONTADOR><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_3\Etapa_3Assembly\Etapa_3Assembly\main.asm</FILE><LINE>312</LINE></ACTUALIZAR_CONTADOR>
+  <MOSTRAR_PIXEL_0><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_3\Etapa_3Assembly\Etapa_3Assembly\main.asm</FILE><LINE>235</LINE></MOSTRAR_PIXEL_0>
+  <MOSTRAR_PIXEL_1><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_3\Etapa_3Assembly\Etapa_3Assembly\main.asm</FILE><LINE>249</LINE></MOSTRAR_PIXEL_1>
+  <MOSTRAR_PIXEL_2><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_3\Etapa_3Assembly\Etapa_3Assembly\main.asm</FILE><LINE>262</LINE></MOSTRAR_PIXEL_2>
+  <REINICIAR_PIXEL><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_3\Etapa_3Assembly\Etapa_3Assembly\main.asm</FILE><LINE>284</LINE></REINICIAR_PIXEL>
+  <MOSTRAR_LED><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_3\Etapa_3Assembly\Etapa_3Assembly\main.asm</FILE><LINE>507</LINE></MOSTRAR_LED>
+  <AVANZAR_PIXEL><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_3\Etapa_3Assembly\Etapa_3Assembly\main.asm</FILE><LINE>274</LINE></AVANZAR_PIXEL>
+  <GUARDAR_PIXEL><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_3\Etapa_3Assembly\Etapa_3Assembly\main.asm</FILE><LINE>288</LINE></GUARDAR_PIXEL>
+  <FIN_TIMER><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_3\Etapa_3Assembly\Etapa_3Assembly\main.asm</FILE><LINE>307</LINE></FIN_TIMER>
+  <FIN_ACTUALIZAR_CONTADOR><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_3\Etapa_3Assembly\Etapa_3Assembly\main.asm</FILE><LINE>358</LINE></FIN_ACTUALIZAR_CONTADOR>
+  <GUARDAR_UNIDADES><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_3\Etapa_3Assembly\Etapa_3Assembly\main.asm</FILE><LINE>354</LINE></GUARDAR_UNIDADES>
+  <GUARDAR_DECENAS><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_3\Etapa_3Assembly\Etapa_3Assembly\main.asm</FILE><LINE>349</LINE></GUARDAR_DECENAS>
+  <VERIFICAR_SOLTAR_BOTONES><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_3\Etapa_3Assembly\Etapa_3Assembly\main.asm</FILE><LINE>445</LINE></VERIFICAR_SOLTAR_BOTONES>
+  <BOTON_IZQUIERDA_PRESIONADO><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_3\Etapa_3Assembly\Etapa_3Assembly\main.asm</FILE><LINE>425</LINE></BOTON_IZQUIERDA_PRESIONADO>
+  <BOTON_DERECHA_PRESIONADO><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_3\Etapa_3Assembly\Etapa_3Assembly\main.asm</FILE><LINE>435</LINE></BOTON_DERECHA_PRESIONADO>
+  <MOVER_IZQUIERDA><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_3\Etapa_3Assembly\Etapa_3Assembly\main.asm</FILE><LINE>465</LINE></MOVER_IZQUIERDA>
+  <MOVER_DERECHA><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_3\Etapa_3Assembly\Etapa_3Assembly\main.asm</FILE><LINE>486</LINE></MOVER_DERECHA>
+  <FIN_MOVER_IZQUIERDA><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_3\Etapa_3Assembly\Etapa_3Assembly\main.asm</FILE><LINE>476</LINE></FIN_MOVER_IZQUIERDA>
+  <FIN_MOVER_DERECHA><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_3\Etapa_3Assembly\Etapa_3Assembly\main.asm</FILE><LINE>497</LINE></FIN_MOVER_DERECHA>
+  <SET_COLUMNA><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_3\Etapa_3Assembly\Etapa_3Assembly\main.asm</FILE><LINE>537</LINE></SET_COLUMNA>
+  <SET_FILA><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_3\Etapa_3Assembly\Etapa_3Assembly\main.asm</FILE><LINE>576</LINE></SET_FILA>
+ </LABELS>
+</ASSEMBLER_INFO>
