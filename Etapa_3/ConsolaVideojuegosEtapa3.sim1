@@ -180,4 +180,6 @@
 
 <item itemtype="Connector" uid="Connector-88" startpinid="Push-23-switch0pinN" endpinid="mega328PB-14-PORTE0" pointList="-628,12,-612,12,-612,-68,-508,-68,-508,-80,-492,-80" />
 
+<item itemtype="Connector" uid="Connector-89" startpinid="mega328PB-14-PORTB6" endpinid="BcdTo7S-3-in2" pointList="-492,-48,-492,104,-188,104,-188,-56,-176,-56" />
+
 </circuit>
