@@ -1,0 +1,85 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.2.8</VERSION>
+ <DEVICE>"ATmega328PB"</DEVICE>
+ <WORKING_DIR>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_4\Etapa_4Assembly\Etapa_4Assembly\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc</DIR>
+  <DIR>C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
+  <DIR></DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_4\Etapa_4Assembly\Etapa_4Assembly\main.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328PBdef.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_4\Etapa_4Assembly\Etapa_4Assembly\Debug\Etapa_4Assembly.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>Etapa_4Assembly.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>Etapa_4Assembly.map</FILE>
+  <FILE>Etapa_4Assembly.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <juego_activo><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_4\Etapa_4Assembly\Etapa_4Assembly\main.asm</FILE><LINE>16</LINE></juego_activo>
+  <pixel_actual><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_4\Etapa_4Assembly\Etapa_4Assembly\main.asm</FILE><LINE>17</LINE></pixel_actual>
+  <unidades><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_4\Etapa_4Assembly\Etapa_4Assembly\main.asm</FILE><LINE>18</LINE></unidades>
+  <decenas><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_4\Etapa_4Assembly\Etapa_4Assembly\main.asm</FILE><LINE>19</LINE></decenas>
+  <pos_carro><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_4\Etapa_4Assembly\Etapa_4Assembly\main.asm</FILE><LINE>20</LINE></pos_carro>
+  <boton_lock><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_4\Etapa_4Assembly\Etapa_4Assembly\main.asm</FILE><LINE>21</LINE></boton_lock>
+  <obstaculo1_y><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_4\Etapa_4Assembly\Etapa_4Assembly\main.asm</FILE><LINE>22</LINE></obstaculo1_y>
+  <obstaculo2_y><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_4\Etapa_4Assembly\Etapa_4Assembly\main.asm</FILE><LINE>23</LINE></obstaculo2_y>
+  <RESET><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_4\Etapa_4Assembly\Etapa_4Assembly\main.asm</FILE><LINE>45</LINE></RESET>
+  <START><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_4\Etapa_4Assembly\Etapa_4Assembly\main.asm</FILE><LINE>214</LINE></START>
+  <ISR_TIMER1_COMPA><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_4\Etapa_4Assembly\Etapa_4Assembly\main.asm</FILE><LINE>349</LINE></ISR_TIMER1_COMPA>
+  <ISR_TIMER0_COMPA><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_4\Etapa_4Assembly\Etapa_4Assembly\main.asm</FILE><LINE>265</LINE></ISR_TIMER0_COMPA>
+  <MAIN><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_4\Etapa_4Assembly\Etapa_4Assembly\main.asm</FILE><LINE>207</LINE></MAIN>
+  <MOSTRAR_DISPLAY><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_4\Etapa_4Assembly\Etapa_4Assembly\main.asm</FILE><LINE>554</LINE></MOSTRAR_DISPLAY>
+  <CONTINUAR_TIMER0><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_4\Etapa_4Assembly\Etapa_4Assembly\main.asm</FILE><LINE>274</LINE></CONTINUAR_TIMER0>
+  <APAGAR_MATRIZ><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_4\Etapa_4Assembly\Etapa_4Assembly\main.asm</FILE><LINE>495</LINE></APAGAR_MATRIZ>
+  <LEER_BOTONES><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_4\Etapa_4Assembly\Etapa_4Assembly\main.asm</FILE><LINE>586</LINE></LEER_BOTONES>
+  <SALTAR_PIXEL_0><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_4\Etapa_4Assembly\Etapa_4Assembly\main.asm</FILE><LINE>315</LINE></SALTAR_PIXEL_0>
+  <SALTAR_PIXEL_1><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_4\Etapa_4Assembly\Etapa_4Assembly\main.asm</FILE><LINE>318</LINE></SALTAR_PIXEL_1>
+  <SALTAR_PIXEL_2><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_4\Etapa_4Assembly\Etapa_4Assembly\main.asm</FILE><LINE>321</LINE></SALTAR_PIXEL_2>
+  <SALTAR_OBS1_0><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_4\Etapa_4Assembly\Etapa_4Assembly\main.asm</FILE><LINE>324</LINE></SALTAR_OBS1_0>
+  <SALTAR_OBS1_1><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_4\Etapa_4Assembly\Etapa_4Assembly\main.asm</FILE><LINE>327</LINE></SALTAR_OBS1_1>
+  <SALTAR_OBS1_2><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_4\Etapa_4Assembly\Etapa_4Assembly\main.asm</FILE><LINE>330</LINE></SALTAR_OBS1_2>
+  <SALTAR_OBS2_0><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_4\Etapa_4Assembly\Etapa_4Assembly\main.asm</FILE><LINE>333</LINE></SALTAR_OBS2_0>
+  <SALTAR_OBS2_1><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_4\Etapa_4Assembly\Etapa_4Assembly\main.asm</FILE><LINE>336</LINE></SALTAR_OBS2_1>
+  <SALTAR_OBS2_2><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_4\Etapa_4Assembly\Etapa_4Assembly\main.asm</FILE><LINE>339</LINE></SALTAR_OBS2_2>
+  <SALTAR_OBS2_3><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_4\Etapa_4Assembly\Etapa_4Assembly\main.asm</FILE><LINE>342</LINE></SALTAR_OBS2_3>
+  <REINICIAR_PIXEL><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_4\Etapa_4Assembly\Etapa_4Assembly\main.asm</FILE><LINE>487</LINE></REINICIAR_PIXEL>
+  <MOSTRAR_PIXEL_0><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_4\Etapa_4Assembly\Etapa_4Assembly\main.asm</FILE><LINE>370</LINE></MOSTRAR_PIXEL_0>
+  <MOSTRAR_PIXEL_1><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_4\Etapa_4Assembly\Etapa_4Assembly\main.asm</FILE><LINE>384</LINE></MOSTRAR_PIXEL_1>
+  <MOSTRAR_PIXEL_2><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_4\Etapa_4Assembly\Etapa_4Assembly\main.asm</FILE><LINE>397</LINE></MOSTRAR_PIXEL_2>
+  <MOSTRAR_OBS1_0><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_4\Etapa_4Assembly\Etapa_4Assembly\main.asm</FILE><LINE>413</LINE></MOSTRAR_OBS1_0>
+  <MOSTRAR_OBS1_1><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_4\Etapa_4Assembly\Etapa_4Assembly\main.asm</FILE><LINE>421</LINE></MOSTRAR_OBS1_1>
+  <MOSTRAR_OBS1_2><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_4\Etapa_4Assembly\Etapa_4Assembly\main.asm</FILE><LINE>429</LINE></MOSTRAR_OBS1_2>
+  <MOSTRAR_OBS2_0><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_4\Etapa_4Assembly\Etapa_4Assembly\main.asm</FILE><LINE>442</LINE></MOSTRAR_OBS2_0>
+  <MOSTRAR_OBS2_1><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_4\Etapa_4Assembly\Etapa_4Assembly\main.asm</FILE><LINE>450</LINE></MOSTRAR_OBS2_1>
+  <MOSTRAR_OBS2_2><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_4\Etapa_4Assembly\Etapa_4Assembly\main.asm</FILE><LINE>458</LINE></MOSTRAR_OBS2_2>
+  <MOSTRAR_OBS2_3><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_4\Etapa_4Assembly\Etapa_4Assembly\main.asm</FILE><LINE>466</LINE></MOSTRAR_OBS2_3>
+  <CONTINUAR_TIMER1><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_4\Etapa_4Assembly\Etapa_4Assembly\main.asm</FILE><LINE>358</LINE></CONTINUAR_TIMER1>
+  <FIN_TIMER1><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_4\Etapa_4Assembly\Etapa_4Assembly\main.asm</FILE><LINE>363</LINE></FIN_TIMER1>
+  <ACTUALIZAR_CONTADOR><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_4\Etapa_4Assembly\Etapa_4Assembly\main.asm</FILE><LINE>515</LINE></ACTUALIZAR_CONTADOR>
+  <MOVER_OBSTACULOS><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_4\Etapa_4Assembly\Etapa_4Assembly\main.asm</FILE><LINE>676</LINE></MOVER_OBSTACULOS>
+  <MOSTRAR_LED><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_4\Etapa_4Assembly\Etapa_4Assembly\main.asm</FILE><LINE>715</LINE></MOSTRAR_LED>
+  <AVANZAR_PIXEL><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_4\Etapa_4Assembly\Etapa_4Assembly\main.asm</FILE><LINE>479</LINE></AVANZAR_PIXEL>
+  <GUARDAR_PIXEL><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_4\Etapa_4Assembly\Etapa_4Assembly\main.asm</FILE><LINE>490</LINE></GUARDAR_PIXEL>
+  <FIN_TIMER0><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_4\Etapa_4Assembly\Etapa_4Assembly\main.asm</FILE><LINE>508</LINE></FIN_TIMER0>
+  <GUARDAR_UNIDADES><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_4\Etapa_4Assembly\Etapa_4Assembly\main.asm</FILE><LINE>543</LINE></GUARDAR_UNIDADES>
+  <GUARDAR_DECENAS><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_4\Etapa_4Assembly\Etapa_4Assembly\main.asm</FILE><LINE>538</LINE></GUARDAR_DECENAS>
+  <VERIFICAR_SOLTAR_BOTONES><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_4\Etapa_4Assembly\Etapa_4Assembly\main.asm</FILE><LINE>622</LINE></VERIFICAR_SOLTAR_BOTONES>
+  <BOTON_IZQUIERDA_PRESIONADO><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_4\Etapa_4Assembly\Etapa_4Assembly\main.asm</FILE><LINE>604</LINE></BOTON_IZQUIERDA_PRESIONADO>
+  <BOTON_DERECHA_PRESIONADO><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_4\Etapa_4Assembly\Etapa_4Assembly\main.asm</FILE><LINE>613</LINE></BOTON_DERECHA_PRESIONADO>
+  <MOVER_IZQUIERDA><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_4\Etapa_4Assembly\Etapa_4Assembly\main.asm</FILE><LINE>642</LINE></MOVER_IZQUIERDA>
+  <MOVER_DERECHA><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_4\Etapa_4Assembly\Etapa_4Assembly\main.asm</FILE><LINE>659</LINE></MOVER_DERECHA>
+  <FIN_MOVER_IZQUIERDA><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_4\Etapa_4Assembly\Etapa_4Assembly\main.asm</FILE><LINE>652</LINE></FIN_MOVER_IZQUIERDA>
+  <FIN_MOVER_DERECHA><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_4\Etapa_4Assembly\Etapa_4Assembly\main.asm</FILE><LINE>669</LINE></FIN_MOVER_DERECHA>
+  <GUARDAR_OBSTACULO1><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_4\Etapa_4Assembly\Etapa_4Assembly\main.asm</FILE><LINE>689</LINE></GUARDAR_OBSTACULO1>
+  <GUARDAR_OBSTACULO2><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_4\Etapa_4Assembly\Etapa_4Assembly\main.asm</FILE><LINE>703</LINE></GUARDAR_OBSTACULO2>
+  <SET_COLUMNA><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_4\Etapa_4Assembly\Etapa_4Assembly\main.asm</FILE><LINE>741</LINE></SET_COLUMNA>
+  <SET_FILA><FILE>C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_4\Etapa_4Assembly\Etapa_4Assembly\main.asm</FILE><LINE>779</LINE></SET_FILA>
+ </LABELS>
+</ASSEMBLER_INFO>

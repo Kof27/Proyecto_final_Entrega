@@ -28,11 +28,24 @@ contador: .byte 1
 .org 0x0004
     rjmp START               ; Vector de interrupción externa INT1
 
+.org 0x0016
+	rjmp ISR_TIMER1_COMPA	; Vector Timer/Counter1 Compare Match A
+
 .org 0x001C
     rjmp ISR_TIMER0_COMPA    ; Vector Timer0 Compare Match A
 
+
 ;***********************************************
 RESET:
+
+    ;-------------------------------------------
+    ; Inicializar Stack Pointer
+    ;-------------------------------------------
+    ldi r16, HIGH(RAMEND)
+    out SPH, r16
+
+    ldi r16, LOW(RAMEND)
+    out SPL, r16
 
     ;-------------------------------------------
     ; Inicializar Stack Pointer
@@ -150,6 +163,31 @@ RESET:
     ldi r16, 0b00000011
     out TCCR0B, r16
 
+	;-------------------------------------------
+	; Configurar Timer1 en modo CTC
+	; Timer1 será usado para contar segundos reales
+	;-------------------------------------------
+
+	; OCR1A = 15625
+	ldi r16, HIGH(15625)
+	sts OCR1AH, r16
+
+	ldi r16, LOW(15625)
+	sts OCR1AL, r16
+
+	; Timer1 en modo CTC
+	; WGM12 = 1
+	; Prescaler 1024
+	; CS12 = 1, CS11 = 0, CS10 = 1
+	;
+	; TCCR1B = 00001101
+	ldi r16, 0b00001101
+	sts TCCR1B, r16
+
+	; OCIE1A = 1
+	ldi r16, 0b00000010
+	sts TIMSK1, r16
+
     ;-------------------------------------------
     ; Habilitar interrupciones globales
     ;-------------------------------------------
@@ -185,15 +223,29 @@ START:
     reti
 
 ;***********************************************
+; ISR_TIMER1_COMPA
+;***********************************************
+ISR_TIMER1_COMPA:
+
+    ; Verificar si el juego está activo
+    lds r16, juego_activo
+    cpi r16, 0x01
+    brne FIN_TIMER1
+
+    ; Aumentar contador visible
+    rcall ACTUALIZAR_CONTADOR
+
+FIN_TIMER1:
+    reti
+;***********************************************
 ISR_TIMER0_COMPA:
 
     ;-------------------------------------------
-    ; Primero revisamos si ya se presionó Start
+    ; Revisar si ya se presionó Start
     ;-------------------------------------------
     lds r16, juego_activo
     cpi r16, 0x01
     brne APAGAR_MATRIZ
-	rcall ACTUALIZAR_CONTADOR
 
     ;-------------------------------------------
     ; Leer cuál pixel toca mostrar
@@ -333,17 +385,6 @@ FIN_TIMER:
 ;***********************************************
 ACTUALIZAR_CONTADOR:
 
-    ; contador_ticks++
-    lds r16, contador
-    inc r16
-    sts contador, r16
-    cpi r16, 250
-    brlo FIN_ACTUALIZAR_CONTADOR
-
-    ; Si llegó al valor definido, reinicia ticks
-    ldi r16, 0x00
-    sts contador, r16
-
     ; Aumentar unidades
     lds r16, unidades
     inc r16
@@ -364,22 +405,18 @@ ACTUALIZAR_CONTADOR:
     cpi r17, 10
     brlo GUARDAR_DECENAS
 
-    ; Si decenas llegó a 10, significa que pasó de 99.
-    ; Entonces vuelve a 00.
+    ; Si decenas llegó a 10, vuelve a 00
     ldi r17, 0x00
 
 GUARDAR_DECENAS:
     sts decenas, r17
     rcall MOSTRAR_DISPLAY
-    rjmp FIN_ACTUALIZAR_CONTADOR
+    ret
 
 GUARDAR_UNIDADES:
     sts unidades, r16
     rcall MOSTRAR_DISPLAY
-
-FIN_ACTUALIZAR_CONTADOR:
     ret
-
 ;***********************************************
 ; MOSTRAR_DISPLAY
 ;
