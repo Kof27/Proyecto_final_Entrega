@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.8  C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_4\Etapa_4Assembly\Etapa_4Assembly\main.asm Tue May 19 15:45:43 2026
+AVRASM ver. 2.2.8  C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_4\Etapa_4Assembly\Etapa_4Assembly\main.asm Fri May 22 15:59:34 2026
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328PBdef.inc'
 C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\Proyecto_final_Entrega\Etapa_4\Etapa_4Assembly\Etapa_4Assembly\main.asm(10): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328PBdef.inc'
@@ -1613,10 +1613,10 @@ C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\P
 000004 c085                          rjmp START               ; Vector de interrupción externa INT1
                                  
                                  .org 0x0016
-000016 c0bc                          rjmp ISR_TIMER1_COMPA    ; Vector Timer/Counter1 Compare Match A
+000016 c0cb                          rjmp ISR_TIMER1_COMPA    ; Vector Timer/Counter1 Compare Match A
                                  
                                  .org 0x001C
-00001c c08f                          rjmp ISR_TIMER0_COMPA    ; Vector Timer0 Compare Match A
+00001c c097                          rjmp ISR_TIMER0_COMPA    ; Vector Timer0 Compare Match A
                                  
                                  .org 0x0040                  ; Evita solapamiento con vectores
                                  
@@ -1795,47 +1795,63 @@ C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\P
                                      ; PC1 pasa a 0 cuando inicia el juego
 00008a 9841                          cbi PORTC, 1
                                  
+                                     ; Reactivar Timer0 para refrescar la matriz
+00008b e003                          ldi r16, 0b00000011
+00008c bd05                          out TCCR0B, r16
+                                 
                                      ; Reiniciar Timer1
-00008b e000                          ldi r16, 0x00
-00008c 9300 0085                     sts TCNT1H, r16
-00008e 9300 0084                     sts TCNT1L, r16
+00008d e000                          ldi r16, 0x00
+00008e 9300 0085                     sts TCNT1H, r16
+000090 9300 0084                     sts TCNT1L, r16
                                  
                                      ; Limpiar bandera de comparación de Timer1
-000090 e002                          ldi r16, 0b00000010
-000091 9300 0016                     sts TIFR1, r16
+000092 e002                          ldi r16, 0b00000010
+000093 9300 0016                     sts TIFR1, r16
+                                 
+                                 	; Reactivar Timer1
+                                     ; WGM12 = 1, CS12 = 1, CS10 = 1
+                                     ; Modo CTC + prescaler 1024
+000095 e00d                          ldi r16, 0b00001101
+000096 9300 0081                     sts TCCR1B, r16
+                                 
+                                     ; Reactivar Timer1
+                                     ; WGM12 = 1, CS12 = 1, CS10 = 1
+                                     ; Modo CTC + prescaler 1024
+000098 e00d                          ldi r16, 0b00001101
+000099 9300 0081                     sts TCCR1B, r16
                                  
                                      ; Activar juego
-000093 e001                          ldi r16, 0x01
-000094 9300 0100                     sts juego_activo, r16
+00009b e001                          ldi r16, 0x01
+00009c 9300 0100                     sts juego_activo, r16
                                  
                                      ; Iniciar desde el primer pixel
-000096 e000                          ldi r16, 0x00
-000097 9300 0101                     sts pixel_actual, r16
+00009e e000                          ldi r16, 0x00
+00009f 9300 0101                     sts pixel_actual, r16
                                  
                                      ; Reiniciar contador a 00
-000099 e000                          ldi r16, 0x00
-00009a 9300 0102                     sts unidades, r16
-00009c 9300 0103                     sts decenas, r16
+0000a1 e000                          ldi r16, 0x00
+0000a2 9300 0102                     sts unidades, r16
+0000a4 9300 0103                     sts decenas, r16
                                  
                                      ; Vehículo al centro
-00009e e003                          ldi r16, 3
-00009f 9300 0104                     sts pos_carro, r16
+0000a6 e003                          ldi r16, 3
+0000a7 9300 0104                     sts pos_carro, r16
                                  
                                      ; Desbloquear botones
-0000a1 e000                          ldi r16, 0
-0000a2 9300 0105                     sts boton_lock, r16
+0000a9 e000                          ldi r16, 0
+0000aa 9300 0105                     sts boton_lock, r16
                                  
                                      ; Reiniciar obstáculos
-0000a4 e000                          ldi r16, 0
-0000a5 9300 0106                     sts obstaculo1_y, r16
+0000ac e000                          ldi r16, 0
+0000ad 9300 0106                     sts obstaculo1_y, r16
                                  
-0000a7 e004                          ldi r16, 4
-0000a8 9300 0107                     sts obstaculo2_y, r16
+0000af e004                          ldi r16, 4
+0000b0 9300 0107                     sts obstaculo2_y, r16
                                  
                                      ; Mostrar 00 en displays
-0000aa d08a                          rcall MOSTRAR_DISPLAY
+0000b2 d096                          rcall MOSTRAR_DISPLAY
                                  
-0000ab 9518                          reti
+0000b3 9518                          reti
                                  
                                  ;***********************************************
                                  ; ISR_TIMER0_COMPA
@@ -1843,83 +1859,111 @@ C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\P
                                  ;***********************************************
                                  ISR_TIMER0_COMPA:
                                  
-                                     ; Verificar si el juego está activo
-0000ac 9100 0100                     lds r16, juego_activo
-0000ae 3001                          cpi r16, 0x01
-0000af f009                          breq CONTINUAR_TIMER0
+                                     ; Verificar estado del juego
+0000b4 9100 0100                     lds r16, juego_activo
                                  
-0000b0 c068                          rjmp APAGAR_MATRIZ
+                                     ; 1 = juego activo
+0000b6 3001                          cpi r16, 0x01
+0000b7 f019                          breq TIMER0_JUGANDO
+                                 
+                                     ; 2 = juego terminado por choque
+                                     ; Se sigue refrescando la matriz,
+                                     ; pero no se leen botones
+0000b8 3002                          cpi r16, 0x02
+0000b9 f019                          breq TIMER0_CONGELADO
+                                 
+                                     ; 0 = juego detenido antes de iniciar
+0000ba c072                          rjmp APAGAR_MATRIZ
+                                 
+                                 TIMER0_JUGANDO:
+                                 
+                                     ; Solo durante el juego activo se leen botones
+0000bb d098                          rcall LEER_BOTONES
+                                 
+0000bc c001                          rjmp DIBUJAR_MATRIZ
+                                 
+                                 TIMER0_CONGELADO:
+                                 
+                                     ; No leer botones.
+                                     ; Se conserva la última posición del vehículo
+                                     ; y de los obstáculos.
+0000bd c000                          rjmp DIBUJAR_MATRIZ
+                                 
+                                 DIBUJAR_MATRIZ:
+                                 
+                                     ; Leer cuál pixel toca mostrar
+0000be 9100 0101                     lds r16, pixel_actual
                                  
                                  CONTINUAR_TIMER0:
                                  
-0000b1 d08e                          rcall LEER_BOTONES
+0000c0 d093                          rcall LEER_BOTONES
                                  
                                      ; Leer cuál pixel toca mostrar
-0000b2 9100 0101                     lds r16, pixel_actual
+0000c1 9100 0101                     lds r16, pixel_actual
                                  
-0000b4 3000                          cpi r16, 0
-0000b5 f099                          breq SALTAR_PIXEL_0
+0000c3 3000                          cpi r16, 0
+0000c4 f099                          breq SALTAR_PIXEL_0
                                  
-0000b6 3001                          cpi r16, 1
-0000b7 f091                          breq SALTAR_PIXEL_1
+0000c5 3001                          cpi r16, 1
+0000c6 f091                          breq SALTAR_PIXEL_1
                                  
-0000b8 3002                          cpi r16, 2
-0000b9 f089                          breq SALTAR_PIXEL_2
+0000c7 3002                          cpi r16, 2
+0000c8 f089                          breq SALTAR_PIXEL_2
                                  
-0000ba 3003                          cpi r16, 3
-0000bb f081                          breq SALTAR_OBS1_0
+0000c9 3003                          cpi r16, 3
+0000ca f081                          breq SALTAR_OBS1_0
                                  
-0000bc 3004                          cpi r16, 4
-0000bd f079                          breq SALTAR_OBS1_1
+0000cb 3004                          cpi r16, 4
+0000cc f079                          breq SALTAR_OBS1_1
                                  
-0000be 3005                          cpi r16, 5
-0000bf f071                          breq SALTAR_OBS1_2
+0000cd 3005                          cpi r16, 5
+0000ce f071                          breq SALTAR_OBS1_2
                                  
-0000c0 3006                          cpi r16, 6
-0000c1 f069                          breq SALTAR_OBS2_0
+0000cf 3006                          cpi r16, 6
+0000d0 f069                          breq SALTAR_OBS2_0
                                  
-0000c2 3007                          cpi r16, 7
-0000c3 f061                          breq SALTAR_OBS2_1
+0000d1 3007                          cpi r16, 7
+0000d2 f061                          breq SALTAR_OBS2_1
                                  
-0000c4 3008                          cpi r16, 8
-0000c5 f059                          breq SALTAR_OBS2_2
+0000d3 3008                          cpi r16, 8
+0000d4 f059                          breq SALTAR_OBS2_2
                                  
-0000c6 3009                          cpi r16, 9
-0000c7 f051                          breq SALTAR_OBS2_3
+0000d5 3009                          cpi r16, 9
+0000d6 f051                          breq SALTAR_OBS2_3
                                  
-0000c8 c04c                          rjmp REINICIAR_PIXEL
+0000d7 c051                          rjmp REINICIAR_PIXEL
                                  
                                  ; Saltos intermedios para evitar Relative branch out of reach
                                  
                                  SALTAR_PIXEL_0:
-0000c9 c011                          rjmp MOSTRAR_PIXEL_0
+0000d8 c016                          rjmp MOSTRAR_PIXEL_0
                                  
                                  SALTAR_PIXEL_1:
-0000ca c016                          rjmp MOSTRAR_PIXEL_1
+0000d9 c01b                          rjmp MOSTRAR_PIXEL_1
                                  
                                  SALTAR_PIXEL_2:
-0000cb c01a                          rjmp MOSTRAR_PIXEL_2
+0000da c01f                          rjmp MOSTRAR_PIXEL_2
                                  
                                  SALTAR_OBS1_0:
-0000cc c020                          rjmp MOSTRAR_OBS1_0
+0000db c025                          rjmp MOSTRAR_OBS1_0
                                  
                                  SALTAR_OBS1_1:
-0000cd c024                          rjmp MOSTRAR_OBS1_1
+0000dc c029                          rjmp MOSTRAR_OBS1_1
                                  
                                  SALTAR_OBS1_2:
-0000ce c028                          rjmp MOSTRAR_OBS1_2
+0000dd c02d                          rjmp MOSTRAR_OBS1_2
                                  
                                  SALTAR_OBS2_0:
-0000cf c02c                          rjmp MOSTRAR_OBS2_0
+0000de c031                          rjmp MOSTRAR_OBS2_0
                                  
                                  SALTAR_OBS2_1:
-0000d0 c030                          rjmp MOSTRAR_OBS2_1
+0000df c035                          rjmp MOSTRAR_OBS2_1
                                  
                                  SALTAR_OBS2_2:
-0000d1 c034                          rjmp MOSTRAR_OBS2_2
+0000e0 c039                          rjmp MOSTRAR_OBS2_2
                                  
                                  SALTAR_OBS2_3:
-0000d2 c038                          rjmp MOSTRAR_OBS2_3
+0000e1 c03d                          rjmp MOSTRAR_OBS2_3
                                  
                                  ;***********************************************
                                  ; ISR_TIMER1_COMPA
@@ -1928,19 +1972,31 @@ C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\P
                                  ISR_TIMER1_COMPA:
                                  
                                      ; Verificar si el juego está activo
-0000d3 9100 0100                     lds r16, juego_activo
-0000d5 3001                          cpi r16, 0x01
-0000d6 f009                          breq CONTINUAR_TIMER1
+0000e2 9100 0100                     lds r16, juego_activo
+0000e4 3001                          cpi r16, 0x01
+0000e5 f009                          breq CONTINUAR_TIMER1
                                  
-0000d7 c002                          rjmp FIN_TIMER1
+0000e6 c007                          rjmp FIN_TIMER1
                                  
                                  CONTINUAR_TIMER1:
                                  
-0000d8 d046                          rcall ACTUALIZAR_CONTADOR
-0000d9 d091                          rcall MOVER_OBSTACULOS
+                                     ; Primero bajan los obstáculos
+0000e7 d09c                          rcall MOVER_OBSTACULOS
+                                 
+                                     ; Luego se verifica si chocaron con el vehículo
+0000e8 d0ac                          rcall VERIFICAR_CHOQUE
+                                 
+                                     ; Si hubo choque, juego_activo queda en 0
+                                     ; y no se actualiza el contador
+0000e9 9100 0100                     lds r16, juego_activo
+0000eb 3001                          cpi r16, 0x01
+0000ec f409                          brne FIN_TIMER1
+                                 
+                                     ; Si no hubo choque, aumenta el reloj
+0000ed d045                          rcall ACTUALIZAR_CONTADOR
                                  
                                  FIN_TIMER1:
-0000da 9518                          reti
+0000ee 9518                          reti
                                  
                                  ;***********************************************
                                  ; Pixel 0 del vehículo
@@ -1948,13 +2004,13 @@ C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\P
                                  ;***********************************************
                                  MOSTRAR_PIXEL_0:
                                  
-0000db 9140 0104                     lds r20, pos_carro
-0000dd 9543                          inc r20
+0000ef 9140 0104                     lds r20, pos_carro
+0000f1 9543                          inc r20
                                  
-0000de e056                          ldi r21, 6
-0000df d09c                          rcall MOSTRAR_LED
+0000f2 e056                          ldi r21, 6
+0000f3 d0f2                          rcall MOSTRAR_LED
                                  
-0000e0 c02f                          rjmp AVANZAR_PIXEL
+0000f4 c02f                          rjmp AVANZAR_PIXEL
                                  
                                  ;***********************************************
                                  ; Pixel 1 del vehículo
@@ -1962,12 +2018,12 @@ C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\P
                                  ;***********************************************
                                  MOSTRAR_PIXEL_1:
                                  
-0000e1 9140 0104                     lds r20, pos_carro
+0000f5 9140 0104                     lds r20, pos_carro
                                  
-0000e3 e057                          ldi r21, 7
-0000e4 d097                          rcall MOSTRAR_LED
+0000f7 e057                          ldi r21, 7
+0000f8 d0ed                          rcall MOSTRAR_LED
                                  
-0000e5 c02a                          rjmp AVANZAR_PIXEL
+0000f9 c02a                          rjmp AVANZAR_PIXEL
                                  
                                  ;***********************************************
                                  ; Pixel 2 del vehículo
@@ -1975,14 +2031,14 @@ C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\P
                                  ;***********************************************
                                  MOSTRAR_PIXEL_2:
                                  
-0000e6 9140 0104                     lds r20, pos_carro
-0000e8 9543                          inc r20
-0000e9 9543                          inc r20
+0000fa 9140 0104                     lds r20, pos_carro
+0000fc 9543                          inc r20
+0000fd 9543                          inc r20
                                  
-0000ea e057                          ldi r21, 7
-0000eb d090                          rcall MOSTRAR_LED
+0000fe e057                          ldi r21, 7
+0000ff d0e6                          rcall MOSTRAR_LED
                                  
-0000ec c023                          rjmp AVANZAR_PIXEL
+000100 c023                          rjmp AVANZAR_PIXEL
                                  
                                  ;***********************************************
                                  ; Obstáculo 1: barra horizontal de 3 píxeles
@@ -1991,27 +2047,27 @@ C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\P
                                  ;***********************************************
                                  MOSTRAR_OBS1_0:
                                  
-0000ed e042                          ldi r20, 2
-0000ee 9150 0106                     lds r21, obstaculo1_y
-0000f0 d08b                          rcall MOSTRAR_LED
+000101 e042                          ldi r20, 2
+000102 9150 0106                     lds r21, obstaculo1_y
+000104 d0e1                          rcall MOSTRAR_LED
                                  
-0000f1 c01e                          rjmp AVANZAR_PIXEL
+000105 c01e                          rjmp AVANZAR_PIXEL
                                  
                                  MOSTRAR_OBS1_1:
                                  
-0000f2 e043                          ldi r20, 3
-0000f3 9150 0106                     lds r21, obstaculo1_y
-0000f5 d086                          rcall MOSTRAR_LED
+000106 e043                          ldi r20, 3
+000107 9150 0106                     lds r21, obstaculo1_y
+000109 d0dc                          rcall MOSTRAR_LED
                                  
-0000f6 c019                          rjmp AVANZAR_PIXEL
+00010a c019                          rjmp AVANZAR_PIXEL
                                  
                                  MOSTRAR_OBS1_2:
                                  
-0000f7 e044                          ldi r20, 4
-0000f8 9150 0106                     lds r21, obstaculo1_y
-0000fa d081                          rcall MOSTRAR_LED
+00010b e044                          ldi r20, 4
+00010c 9150 0106                     lds r21, obstaculo1_y
+00010e d0d7                          rcall MOSTRAR_LED
                                  
-0000fb c014                          rjmp AVANZAR_PIXEL
+00010f c014                          rjmp AVANZAR_PIXEL
                                  
                                  ;***********************************************
                                  ; Obstáculo 2: barra horizontal de 4 píxeles
@@ -2020,35 +2076,35 @@ C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\P
                                  ;***********************************************
                                  MOSTRAR_OBS2_0:
                                  
-0000fc e043                          ldi r20, 3
-0000fd 9150 0107                     lds r21, obstaculo2_y
-0000ff d07c                          rcall MOSTRAR_LED
+000110 e043                          ldi r20, 3
+000111 9150 0107                     lds r21, obstaculo2_y
+000113 d0d2                          rcall MOSTRAR_LED
                                  
-000100 c00f                          rjmp AVANZAR_PIXEL
+000114 c00f                          rjmp AVANZAR_PIXEL
                                  
                                  MOSTRAR_OBS2_1:
                                  
-000101 e044                          ldi r20, 4
-000102 9150 0107                     lds r21, obstaculo2_y
-000104 d077                          rcall MOSTRAR_LED
+000115 e044                          ldi r20, 4
+000116 9150 0107                     lds r21, obstaculo2_y
+000118 d0cd                          rcall MOSTRAR_LED
                                  
-000105 c00a                          rjmp AVANZAR_PIXEL
+000119 c00a                          rjmp AVANZAR_PIXEL
                                  
                                  MOSTRAR_OBS2_2:
                                  
-000106 e045                          ldi r20, 5
-000107 9150 0107                     lds r21, obstaculo2_y
-000109 d072                          rcall MOSTRAR_LED
+00011a e045                          ldi r20, 5
+00011b 9150 0107                     lds r21, obstaculo2_y
+00011d d0c8                          rcall MOSTRAR_LED
                                  
-00010a c005                          rjmp AVANZAR_PIXEL
+00011e c005                          rjmp AVANZAR_PIXEL
                                  
                                  MOSTRAR_OBS2_3:
                                  
-00010b e046                          ldi r20, 6
-00010c 9150 0107                     lds r21, obstaculo2_y
-00010e d06d                          rcall MOSTRAR_LED
+00011f e046                          ldi r20, 6
+000120 9150 0107                     lds r21, obstaculo2_y
+000122 d0c3                          rcall MOSTRAR_LED
                                  
-00010f c000                          rjmp AVANZAR_PIXEL
+000123 c000                          rjmp AVANZAR_PIXEL
                                  
                                  ;***********************************************
                                  ; Avanzar pixel del multiplexado
@@ -2057,35 +2113,35 @@ C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\P
                                  ;***********************************************
                                  AVANZAR_PIXEL:
                                  
-000110 9100 0101                     lds r16, pixel_actual
-000112 9503                          inc r16
+000124 9100 0101                     lds r16, pixel_actual
+000126 9503                          inc r16
                                  
-000113 300a                          cpi r16, 10
-000114 f008                          brlo GUARDAR_PIXEL
+000127 300a                          cpi r16, 10
+000128 f008                          brlo GUARDAR_PIXEL
                                  
                                  REINICIAR_PIXEL:
-000115 e000                          ldi r16, 0
+000129 e000                          ldi r16, 0
                                  
                                  GUARDAR_PIXEL:
-000116 9300 0101                     sts pixel_actual, r16
-000118 c005                          rjmp FIN_TIMER0
+00012a 9300 0101                     sts pixel_actual, r16
+00012c c005                          rjmp FIN_TIMER0
                                  
                                  ;***********************************************
                                  APAGAR_MATRIZ:
                                  
                                      ; PC6 = 1 para fila 8 apagada
                                      ; PC1 = 1 mientras no se presiona Start
-000119 e422                          ldi r18, 0b01000010
-00011a b928                          out PORTC, r18
+00012d e422                          ldi r18, 0b01000010
+00012e b928                          out PORTC, r18
                                  
-00011b e020                          ldi r18, 0b00000000
-00011c b92b                          out PORTD, r18
+00012f e020                          ldi r18, 0b00000000
+000130 b92b                          out PORTD, r18
                                  
-00011d c000                          rjmp FIN_TIMER0
+000131 c000                          rjmp FIN_TIMER0
                                  
                                  ;***********************************************
                                  FIN_TIMER0:
-00011e 9518                          reti
+000132 9518                          reti
                                  
                                  ;***********************************************
                                  ; ACTUALIZAR_CONTADOR
@@ -2094,35 +2150,35 @@ C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\P
                                  ACTUALIZAR_CONTADOR:
                                  
                                      ; Aumentar unidades
-00011f 9100 0102                     lds r16, unidades
-000121 9503                          inc r16
+000133 9100 0102                     lds r16, unidades
+000135 9503                          inc r16
                                  
-000122 300a                          cpi r16, 10
-000123 f068                          brlo GUARDAR_UNIDADES
+000136 300a                          cpi r16, 10
+000137 f068                          brlo GUARDAR_UNIDADES
                                  
                                      ; Si unidades llegó a 10, vuelve a 0
-000124 e000                          ldi r16, 0x00
-000125 9300 0102                     sts unidades, r16
+000138 e000                          ldi r16, 0x00
+000139 9300 0102                     sts unidades, r16
                                  
                                      ; Aumentar decenas
-000127 9110 0103                     lds r17, decenas
-000129 9513                          inc r17
+00013b 9110 0103                     lds r17, decenas
+00013d 9513                          inc r17
                                  
-00012a 301a                          cpi r17, 10
-00012b f008                          brlo GUARDAR_DECENAS
+00013e 301a                          cpi r17, 10
+00013f f008                          brlo GUARDAR_DECENAS
                                  
                                      ; Si decenas llegó a 10, vuelve a 0
-00012c e010                          ldi r17, 0x00
+000140 e010                          ldi r17, 0x00
                                  
                                  GUARDAR_DECENAS:
-00012d 9310 0103                     sts decenas, r17
-00012f d005                          rcall MOSTRAR_DISPLAY
-000130 9508                          ret
+000141 9310 0103                     sts decenas, r17
+000143 d005                          rcall MOSTRAR_DISPLAY
+000144 9508                          ret
                                  
                                  GUARDAR_UNIDADES:
-000131 9300 0102                     sts unidades, r16
-000133 d001                          rcall MOSTRAR_DISPLAY
-000134 9508                          ret
+000145 9300 0102                     sts unidades, r16
+000147 d001                          rcall MOSTRAR_DISPLAY
+000148 9508                          ret
                                  
                                  ;***********************************************
                                  ; MOSTRAR_DISPLAY
@@ -2133,24 +2189,24 @@ C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\P
                                  MOSTRAR_DISPLAY:
                                  
                                      ; Cargar unidades en r17
-000135 9110 0102                     lds r17, unidades
+000149 9110 0102                     lds r17, unidades
                                  
                                      ; Cargar decenas en r16
-000137 9100 0103                     lds r16, decenas
+00014b 9100 0103                     lds r16, decenas
                                  
                                      ; Mover unidades a la parte alta del byte
-000139 0f11                          lsl r17
-00013a 0f11                          lsl r17
-00013b 0f11                          lsl r17
-00013c 0f11                          lsl r17
+00014d 0f11                          lsl r17
+00014e 0f11                          lsl r17
+00014f 0f11                          lsl r17
+000150 0f11                          lsl r17
                                  
                                      ; Unir unidades y decenas
-00013d 2b01                          or r16, r17
+000151 2b01                          or r16, r17
                                  
                                      ; Enviar a los BcdTo7S
-00013e b905                          out PORTB, r16
+000152 b905                          out PORTB, r16
                                  
-00013f 9508                          ret
+000153 9508                          ret
                                  
                                  ;***********************************************
                                  ; LEER_BOTONES
@@ -2163,56 +2219,63 @@ C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\P
                                  ; presionado    = 1
                                  ;***********************************************
                                  LEER_BOTONES:
+                                     ; Si el juego no está activo, no leer botones
+000154 9100 0100                     lds r16, juego_activo
+000156 3001                          cpi r16, 0x01
+000157 f009                          breq CONTINUAR_LEYENDO_BOTONES
+000158 9508                          ret
+                                 
+                                 CONTINUAR_LEYENDO_BOTONES:
                                  
                                      ; Si los botones están bloqueados,
                                      ; verificar si ya se soltaron
-000140 9100 0105                     lds r16, boton_lock
-000142 3001                          cpi r16, 1
-000143 f079                          breq VERIFICAR_SOLTAR_BOTONES
+000159 9100 0105                     lds r16, boton_lock
+00015b 3001                          cpi r16, 1
+00015c f079                          breq VERIFICAR_SOLTAR_BOTONES
                                  
                                      ; Revisar botón izquierda PE0
-000144 9960                          sbic PINE, 0
-000145 c003                          rjmp BOTON_IZQUIERDA_PRESIONADO
+00015d 9960                          sbic PINE, 0
+00015e c003                          rjmp BOTON_IZQUIERDA_PRESIONADO
                                  
                                      ; Revisar botón derecha PD4
-000146 994c                          sbic PIND, 4
-000147 c006                          rjmp BOTON_DERECHA_PRESIONADO
+00015f 994c                          sbic PIND, 4
+000160 c006                          rjmp BOTON_DERECHA_PRESIONADO
                                  
-000148 9508                          ret
+000161 9508                          ret
                                  
                                  BOTON_IZQUIERDA_PRESIONADO:
                                  
-000149 d011                          rcall MOVER_IZQUIERDA
+000162 d011                          rcall MOVER_IZQUIERDA
                                  
-00014a e001                          ldi r16, 1
-00014b 9300 0105                     sts boton_lock, r16
+000163 e001                          ldi r16, 1
+000164 9300 0105                     sts boton_lock, r16
                                  
-00014d 9508                          ret
+000166 9508                          ret
                                  
                                  BOTON_DERECHA_PRESIONADO:
                                  
-00014e d014                          rcall MOVER_DERECHA
+000167 d014                          rcall MOVER_DERECHA
                                  
-00014f e001                          ldi r16, 1
-000150 9300 0105                     sts boton_lock, r16
+000168 e001                          ldi r16, 1
+000169 9300 0105                     sts boton_lock, r16
                                  
-000152 9508                          ret
+00016b 9508                          ret
                                  
                                  VERIFICAR_SOLTAR_BOTONES:
                                  
                                      ; Si PE0 sigue en 1, todavía está presionado
-000153 9960                          sbic PINE, 0
-000154 9508                          ret
+00016c 9960                          sbic PINE, 0
+00016d 9508                          ret
                                  
                                      ; Si PD4 sigue en 1, todavía está presionado
-000155 994c                          sbic PIND, 4
-000156 9508                          ret
+00016e 994c                          sbic PIND, 4
+00016f 9508                          ret
                                  
                                      ; Si ambos están en 0, desbloquear botones
-000157 e000                          ldi r16, 0
-000158 9300 0105                     sts boton_lock, r16
+000170 e000                          ldi r16, 0
+000171 9300 0105                     sts boton_lock, r16
                                  
-00015a 9508                          ret
+000173 9508                          ret
                                  
                                  ;***********************************************
                                  ; MOVER_IZQUIERDA
@@ -2220,16 +2283,16 @@ C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\P
                                  ;***********************************************
                                  MOVER_IZQUIERDA:
                                  
-00015b 9100 0104                     lds r16, pos_carro
+000174 9100 0104                     lds r16, pos_carro
                                  
-00015d 3000                          cpi r16, 0
-00015e f019                          breq FIN_MOVER_IZQUIERDA
+000176 3000                          cpi r16, 0
+000177 f019                          breq FIN_MOVER_IZQUIERDA
                                  
-00015f 950a                          dec r16
-000160 9300 0104                     sts pos_carro, r16
+000178 950a                          dec r16
+000179 9300 0104                     sts pos_carro, r16
                                  
                                  FIN_MOVER_IZQUIERDA:
-000162 9508                          ret
+00017b 9508                          ret
                                  
                                  ;***********************************************
                                  ; MOVER_DERECHA
@@ -2237,16 +2300,16 @@ C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\P
                                  ;***********************************************
                                  MOVER_DERECHA:
                                  
-000163 9100 0104                     lds r16, pos_carro
+00017c 9100 0104                     lds r16, pos_carro
                                  
-000165 3005                          cpi r16, 5
-000166 f019                          breq FIN_MOVER_DERECHA
+00017e 3005                          cpi r16, 5
+00017f f019                          breq FIN_MOVER_DERECHA
                                  
-000167 9503                          inc r16
-000168 9300 0104                     sts pos_carro, r16
+000180 9503                          inc r16
+000181 9300 0104                     sts pos_carro, r16
                                  
                                  FIN_MOVER_DERECHA:
-00016a 9508                          ret
+000183 9508                          ret
                                  
                                  ;***********************************************
                                  ; MOVER_OBSTACULOS
@@ -2257,32 +2320,252 @@ C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\P
                                      ;-------------------------------------------
                                      ; Obstáculo 1
                                      ;-------------------------------------------
-00016b 9100 0106                     lds r16, obstaculo1_y
-00016d 9503                          inc r16
+000184 9100 0106                     lds r16, obstaculo1_y
+000186 9503                          inc r16
                                  
-00016e 3008                          cpi r16, 8
-00016f f008                          brlo GUARDAR_OBSTACULO1
+000187 3008                          cpi r16, 8
+000188 f008                          brlo GUARDAR_OBSTACULO1
                                  
-000170 e000                          ldi r16, 0
+000189 e000                          ldi r16, 0
                                  
                                  GUARDAR_OBSTACULO1:
-000171 9300 0106                     sts obstaculo1_y, r16
+00018a 9300 0106                     sts obstaculo1_y, r16
                                  
                                      ;-------------------------------------------
                                      ; Obstáculo 2
                                      ;-------------------------------------------
-000173 9100 0107                     lds r16, obstaculo2_y
-000175 9503                          inc r16
+00018c 9100 0107                     lds r16, obstaculo2_y
+00018e 9503                          inc r16
                                  
-000176 3008                          cpi r16, 8
-000177 f008                          brlo GUARDAR_OBSTACULO2
+00018f 3008                          cpi r16, 8
+000190 f008                          brlo GUARDAR_OBSTACULO2
                                  
-000178 e000                          ldi r16, 0
+000191 e000                          ldi r16, 0
                                  
                                  GUARDAR_OBSTACULO2:
-000179 9300 0107                     sts obstaculo2_y, r16
+000192 9300 0107                     sts obstaculo2_y, r16
                                  
-00017b 9508                          ret
+000194 9508                          ret
+                                 
+                                 ;***********************************************
+                                 ; VERIFICAR_CHOQUE
+                                 ;
+                                 ; Vehículo:
+                                 ;   Pixel superior: fila 6, columna pos_carro + 1
+                                 ;   Pixel inferior izquierdo: fila 7, columna pos_carro
+                                 ;   Pixel inferior derecho: fila 7, columna pos_carro + 2
+                                 ;
+                                 ; Obstáculo 1:
+                                 ;   Fila obstaculo1_y
+                                 ;   Columnas 2, 3 y 4
+                                 ;
+                                 ; Obstáculo 2:
+                                 ;   Fila obstaculo2_y
+                                 ;   Columnas 3, 4, 5 y 6
+                                 ;***********************************************
+                                 VERIFICAR_CHOQUE:
+                                 
+000195 d006                          rcall VERIFICAR_CHOQUE_OBSTACULO1
+                                 
+                                     ; Si ya hubo choque, no revisar más
+000196 9100 0100                     lds r16, juego_activo
+000198 3000                          cpi r16, 0x00
+000199 f009                          breq FIN_VERIFICAR_CHOQUE
+                                 
+00019a d020                          rcall VERIFICAR_CHOQUE_OBSTACULO2
+                                 
+                                 FIN_VERIFICAR_CHOQUE:
+00019b 9508                          ret
+                                 
+                                 ;***********************************************
+                                 ; VERIFICAR_CHOQUE_OBSTACULO1
+                                 ; Obstáculo 1: columnas 2, 3 y 4
+                                 ;***********************************************
+                                 VERIFICAR_CHOQUE_OBSTACULO1:
+                                 
+00019c 9100 0106                     lds r16, obstaculo1_y
+                                 
+                                     ; Si el obstáculo está en fila 6,
+                                     ; puede chocar con el pixel superior del vehículo
+00019e 3006                          cpi r16, 6
+00019f f019                          breq OBS1_FILA6
+                                 
+                                     ; Si el obstáculo está en fila 7,
+                                     ; puede chocar con los dos pixeles inferiores
+0001a0 3007                          cpi r16, 7
+0001a1 f051                          breq OBS1_FILA7
+                                 
+0001a2 9508                          ret
+                                 
+                                 OBS1_FILA6:
+                                 
+                                     ; Pixel superior del vehículo:
+                                     ; columna = pos_carro + 1
+                                     ;
+                                     ; Para chocar con columnas 2, 3 o 4:
+                                     ; pos_carro debe ser 1, 2 o 3
+                                 
+0001a3 9110 0104                     lds r17, pos_carro
+                                 
+0001a5 3011                          cpi r17, 1
+0001a6 f091                          breq OBS1_CHOQUE
+                                 
+0001a7 3012                          cpi r17, 2
+0001a8 f081                          breq OBS1_CHOQUE
+                                 
+0001a9 3013                          cpi r17, 3
+0001aa f071                          breq OBS1_CHOQUE
+                                 
+0001ab 9508                          ret
+                                 
+                                 OBS1_FILA7:
+                                 
+                                     ; Pixeles inferiores del vehículo:
+                                     ; columna izquierda = pos_carro
+                                     ; columna derecha   = pos_carro + 2
+                                     ;
+                                     ; Para chocar con columnas 2, 3 o 4:
+                                     ; pos_carro puede ser 0, 1, 2, 3 o 4
+                                 
+0001ac 9110 0104                     lds r17, pos_carro
+                                 
+0001ae 3010                          cpi r17, 0
+0001af f049                          breq OBS1_CHOQUE
+                                 
+0001b0 3011                          cpi r17, 1
+0001b1 f039                          breq OBS1_CHOQUE
+                                 
+0001b2 3012                          cpi r17, 2
+0001b3 f029                          breq OBS1_CHOQUE
+                                 
+0001b4 3013                          cpi r17, 3
+0001b5 f019                          breq OBS1_CHOQUE
+                                 
+0001b6 3014                          cpi r17, 4
+0001b7 f009                          breq OBS1_CHOQUE
+                                 
+0001b8 9508                          ret
+                                 
+                                 OBS1_CHOQUE:
+                                 
+0001b9 d022                          rcall DETENER_JUEGO
+0001ba 9508                          ret
+                                 
+                                 ;***********************************************
+                                 ; VERIFICAR_CHOQUE_OBSTACULO2
+                                 ; Obstáculo 2: columnas 3, 4, 5 y 6
+                                 ;***********************************************
+                                 VERIFICAR_CHOQUE_OBSTACULO2:
+                                 
+0001bb 9100 0107                     lds r16, obstaculo2_y
+                                 
+                                     ; Si el obstáculo está en fila 6,
+                                     ; puede chocar con el pixel superior del vehículo
+0001bd 3006                          cpi r16, 6
+0001be f019                          breq OBS2_FILA6
+                                 
+                                     ; Si el obstáculo está en fila 7,
+                                     ; puede chocar con los dos pixeles inferiores
+0001bf 3007                          cpi r16, 7
+0001c0 f061                          breq OBS2_FILA7
+                                 
+0001c1 9508                          ret
+                                 
+                                 OBS2_FILA6:
+                                 
+                                     ; Pixel superior del vehículo:
+                                     ; columna = pos_carro + 1
+                                     ;
+                                     ; Para chocar con columnas 3, 4, 5 o 6:
+                                     ; pos_carro debe ser 2, 3, 4 o 5
+                                 
+0001c2 9110 0104                     lds r17, pos_carro
+                                 
+0001c4 3012                          cpi r17, 2
+0001c5 f0a1                          breq OBS2_CHOQUE
+                                 
+0001c6 3013                          cpi r17, 3
+0001c7 f091                          breq OBS2_CHOQUE
+                                 
+0001c8 3014                          cpi r17, 4
+0001c9 f081                          breq OBS2_CHOQUE
+                                 
+0001ca 3015                          cpi r17, 5
+0001cb f071                          breq OBS2_CHOQUE
+                                 
+0001cc 9508                          ret
+                                 
+                                 OBS2_FILA7:
+                                 
+                                     ; Pixeles inferiores del vehículo:
+                                     ; columna izquierda = pos_carro
+                                     ; columna derecha   = pos_carro + 2
+                                     ;
+                                     ; Para chocar con columnas 3, 4, 5 o 6:
+                                     ; pos_carro puede ser 1, 2, 3, 4 o 5
+                                 
+0001cd 9110 0104                     lds r17, pos_carro
+                                 
+0001cf 3011                          cpi r17, 1
+0001d0 f049                          breq OBS2_CHOQUE
+                                 
+0001d1 3012                          cpi r17, 2
+0001d2 f039                          breq OBS2_CHOQUE
+                                 
+0001d3 3013                          cpi r17, 3
+0001d4 f029                          breq OBS2_CHOQUE
+                                 
+0001d5 3014                          cpi r17, 4
+0001d6 f019                          breq OBS2_CHOQUE
+                                 
+0001d7 3015                          cpi r17, 5
+0001d8 f009                          breq OBS2_CHOQUE
+                                 
+0001d9 9508                          ret
+                                 
+                                 OBS2_CHOQUE:
+                                 
+0001da d001                          rcall DETENER_JUEGO
+0001db 9508                          ret
+                                 
+                                 ;***********************************************
+                                 ; DETENER_JUEGO
+                                 ;
+                                 ; Se ejecuta cuando hay choque.
+                                 ; Detiene el juego, detiene los timers,
+                                 ; apaga la matriz, pero NO borra PORTB.
+                                 ; Por eso el display queda con el último número.
+                                 ;***********************************************
+                                 DETENER_JUEGO:
+                                 
+                                 	; juego_activo = 2
+                                 	; Estado game over
+0001dc e002                      	ldi r16, 0x02
+0001dd 9300 0100                 	sts juego_activo, r16
+                                 
+                                 	; Bloquear botones
+0001df e001                      	ldi r16, 1
+0001e0 9300 0105                 	sts boton_lock, r16
+                                 
+                                     ; Detener Timer1
+                                     ; Así el reloj deja de avanzar
+                                     ; y los obstáculos no siguen bajando
+0001e2 e000                          ldi r16, 0x00
+0001e3 9300 0081                     sts TCCR1B, r16
+                                 
+                                     ; IMPORTANTE:
+                                     ; No detener Timer0.
+                                     ; Timer0 debe seguir refrescando la matriz.
+                                 
+                                     ; IMPORTANTE:
+                                     ; No apagar PORTC ni PORTD.
+                                     ; La matriz queda mostrando la última posición.
+                                 
+                                     ; IMPORTANTE:
+                                     ; No tocar PORTB.
+                                     ; El display queda con el último número registrado.
+                                 
+0001e5 9508                          ret
                                  
                                  ;***********************************************
                                  ; MOSTRAR_LED
@@ -2295,16 +2578,16 @@ C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\P
                                  
                                      ; Apagar momentáneamente la matriz
                                      ; Columna 8 y fila 8 quedan sin conexión
-00017c e424                          ldi r18, 0b01000100
-00017d b928                          out PORTC, r18
+0001e6 e424                          ldi r18, 0b01000100
+0001e7 b928                          out PORTC, r18
                                  
-00017e e020                          ldi r18, 0b00000000
-00017f b92b                          out PORTD, r18
+0001e8 e020                          ldi r18, 0b00000000
+0001e9 b92b                          out PORTD, r18
                                  
-000180 d002                          rcall SET_COLUMNA
-000181 d00d                          rcall SET_FILA
+0001ea d002                          rcall SET_COLUMNA
+0001eb d00d                          rcall SET_FILA
                                  
-000182 9508                          ret
+0001ec 9508                          ret
                                  
                                  ;***********************************************
                                  ; SET_COLUMNA
@@ -2321,28 +2604,28 @@ C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\P
                                  
                                      ; Limpiar PC2, PC3, PC4, PC5
                                      ; Mantener PC6 y PC1
-000183 b128                          in r18, PORTC
-000184 7c23                          andi r18, 0b11000011
+0001ed b128                          in r18, PORTC
+0001ee 7c23                          andi r18, 0b11000011
                                  
                                      ; bit 3 de r20 -> PC2
-000185 fd43                          sbrc r20, 3
-000186 6024                          ori r18, 0b00000100
+0001ef fd43                          sbrc r20, 3
+0001f0 6024                          ori r18, 0b00000100
                                  
                                      ; bit 2 de r20 -> PC3
-000187 fd42                          sbrc r20, 2
-000188 6028                          ori r18, 0b00001000
+0001f1 fd42                          sbrc r20, 2
+0001f2 6028                          ori r18, 0b00001000
                                  
                                      ; bit 1 de r20 -> PC4
-000189 fd41                          sbrc r20, 1
-00018a 6120                          ori r18, 0b00010000
+0001f3 fd41                          sbrc r20, 1
+0001f4 6120                          ori r18, 0b00010000
                                  
                                      ; bit 0 de r20 -> PC5
-00018b fd40                          sbrc r20, 0
-00018c 6220                          ori r18, 0b00100000
+0001f5 fd40                          sbrc r20, 0
+0001f6 6220                          ori r18, 0b00100000
                                  
-00018d b928                          out PORTC, r18
+0001f7 b928                          out PORTC, r18
                                  
-00018e 9508                          ret
+0001f8 9508                          ret
                                  
                                  ;***********************************************
                                  ; SET_FILA
@@ -2358,31 +2641,31 @@ C:\Users\Santiago\Documents\2026-1\Arquitectura de computadores\Proyecto final\P
                                  SET_FILA:
                                  
                                      ; bit 3 de fila -> PC6
-00018f b128                          in r18, PORTC
-000190 7b2f                          andi r18, 0b10111111
+0001f9 b128                          in r18, PORTC
+0001fa 7b2f                          andi r18, 0b10111111
                                  
-000191 fd53                          sbrc r21, 3
-000192 6420                          ori r18, 0b01000000
+0001fb fd53                          sbrc r21, 3
+0001fc 6420                          ori r18, 0b01000000
                                  
-000193 b928                          out PORTC, r18
+0001fd b928                          out PORTC, r18
                                  
                                      ; bits 2,1,0 de fila -> PD0, PD1, PD2
-000194 b12b                          in r18, PORTD
-000195 7f28                          andi r18, 0b11111000
+0001fe b12b                          in r18, PORTD
+0001ff 7f28                          andi r18, 0b11111000
                                  
                                      ; bit 2 de r21 -> PD0
-000196 fd52                          sbrc r21, 2
-000197 6021                          ori r18, 0b00000001
+000200 fd52                          sbrc r21, 2
+000201 6021                          ori r18, 0b00000001
                                  
                                      ; bit 1 de r21 -> PD1
-000198 fd51                          sbrc r21, 1
-000199 6022                          ori r18, 0b00000010
+000202 fd51                          sbrc r21, 1
+000203 6022                          ori r18, 0b00000010
                                  
                                      ; bit 0 de r21 -> PD2
-00019a fd50                          sbrc r21, 0
-00019b 6024                          ori r18, 0b00000100
+000204 fd50                          sbrc r21, 0
+000205 6024                          ori r18, 0b00000100
                                  
-00019c b92b                          out PORTD, r18
+000206 b92b                          out PORTD, r18
                                  
 
 
@@ -2403,7 +2686,7 @@ counted separately from r26..r31 here.
 "ATmega328PB" register use summary:
 x  :   0 y  :   0 z  :   0 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :   0 
 r5 :   0 r6 :   0 r7 :   0 r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 
-r13:   0 r14:   0 r15:   0 r16: 118 r17:  11 r18:  33 r19:   0 r20:  17 
+r13:   0 r14:   0 r15:   0 r16: 144 r17:  32 r18:  33 r19:   0 r20:  17 
 r21:  14 r22:   0 r23:   0 r24:   0 r25:   0 r26:   0 r27:   0 r28:   0 
 r29:   0 r30:   0 r31:   0 
 Registers used: 5 out of 35 (14.3%)
@@ -2411,29 +2694,29 @@ Registers used: 5 out of 35 (14.3%)
 "ATmega328PB" instruction use summary:
 .lds  :   0 .sts  :   0 adc   :   0 add   :   0 adiw  :   0 and   :   0 
 andi  :   3 asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0 
-brcc  :   0 brcs  :   0 break :   0 breq  :  15 brge  :   0 brhc  :   0 
+brcc  :   0 brcs  :   0 break :   0 breq  :  39 brge  :   0 brhc  :   0 
 brhs  :   0 brid  :   0 brie  :   0 brlo  :   5 brlt  :   0 brmi  :   0 
-brne  :   0 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
+brne  :   1 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
 brvs  :   0 bset  :   0 bst   :   0 call  :   0 cbi   :   7 cbr   :   0 
 clc   :   0 clh   :   0 cli   :   0 cln   :   0 clr   :   0 cls   :   0 
 clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   0 cpc   :   0 
-cpi   :  20 cpse  :   0 dec   :   1 eor   :   0 fmul  :   0 fmuls :   0 
+cpi   :  45 cpse  :   0 dec   :   1 eor   :   0 fmul  :   0 fmuls :   0 
 fmulsu:   0 icall :   0 ijmp  :   0 in    :   3 inc   :   9 jmp   :   0 
-ld    :   0 ldd   :   0 ldi   :  55 lds   :  23 lpm   :   0 lsl   :   4 
+ld    :   0 ldd   :   0 ldi   :  61 lds   :  33 lpm   :   0 lsl   :   4 
 lsr   :   0 mov   :   0 movw  :   0 mul   :   0 muls  :   0 mulsu :   0 
-neg   :   0 nop   :   0 or    :   1 ori   :   8 out   :  20 pop   :   0 
-push  :   0 rcall :  20 ret   :  15 reti  :   3 rjmp  :  32 rol   :   0 
+neg   :   0 nop   :   0 or    :   1 ori   :   8 out   :  21 pop   :   0 
+push  :   0 rcall :  26 ret   :  26 reti  :   3 rjmp  :  34 rol   :   0 
 ror   :   0 sbc   :   0 sbci  :   0 sbi   :   0 sbic  :   4 sbis  :   0 
 sbiw  :   0 sbr   :   0 sbrc  :   8 sbrs  :   0 sec   :   0 seh   :   0 
 sei   :   1 sen   :   0 ser   :   0 ses   :   0 set   :   0 sev   :   0 
-sez   :   0 sleep :   0 spm   :   0 st    :   0 std   :   0 sts   :  37 
+sez   :   0 sleep :   0 spm   :   0 st    :   0 std   :   0 sts   :  42 
 sub   :   0 subi  :   0 swap  :   0 tst   :   0 wdr   :   0 
-Instructions used: 22 out of 113 (19.5%)
+Instructions used: 23 out of 113 (20.4%)
 
 "ATmega328PB" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x00033c    708      0    708   32768   2.2%
+[.cseg] 0x000000 0x000410    920      0    920   32768   2.8%
 [.dseg] 0x000100 0x000108      0      8      8    2048   0.4%
 [.eseg] 0x000000 0x000000      0      0      0    1024   0.0%
 

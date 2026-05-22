@@ -216,6 +216,10 @@ START:
     ; PC1 pasa a 0 cuando inicia el juego
     cbi PORTC, 1
 
+    ; Reactivar Timer0 para refrescar la matriz
+    ldi r16, 0b00000011
+    out TCCR0B, r16
+
     ; Reiniciar Timer1
     ldi r16, 0x00
     sts TCNT1H, r16
@@ -224,6 +228,18 @@ START:
     ; Limpiar bandera de comparación de Timer1
     ldi r16, 0b00000010
     sts TIFR1, r16
+
+	; Reactivar Timer1
+    ; WGM12 = 1, CS12 = 1, CS10 = 1
+    ; Modo CTC + prescaler 1024
+    ldi r16, 0b00001101
+    sts TCCR1B, r16
+
+    ; Reactivar Timer1
+    ; WGM12 = 1, CS12 = 1, CS10 = 1
+    ; Modo CTC + prescaler 1024
+    ldi r16, 0b00001101
+    sts TCCR1B, r16
 
     ; Activar juego
     ldi r16, 0x01
@@ -264,12 +280,40 @@ START:
 ;***********************************************
 ISR_TIMER0_COMPA:
 
-    ; Verificar si el juego está activo
+    ; Verificar estado del juego
     lds r16, juego_activo
-    cpi r16, 0x01
-    breq CONTINUAR_TIMER0
 
+    ; 1 = juego activo
+    cpi r16, 0x01
+    breq TIMER0_JUGANDO
+
+    ; 2 = juego terminado por choque
+    ; Se sigue refrescando la matriz,
+    ; pero no se leen botones
+    cpi r16, 0x02
+    breq TIMER0_CONGELADO
+
+    ; 0 = juego detenido antes de iniciar
     rjmp APAGAR_MATRIZ
+
+TIMER0_JUGANDO:
+
+    ; Solo durante el juego activo se leen botones
+    rcall LEER_BOTONES
+
+    rjmp DIBUJAR_MATRIZ
+
+TIMER0_CONGELADO:
+
+    ; No leer botones.
+    ; Se conserva la última posición del vehículo
+    ; y de los obstáculos.
+    rjmp DIBUJAR_MATRIZ
+
+DIBUJAR_MATRIZ:
+
+    ; Leer cuál pixel toca mostrar
+    lds r16, pixel_actual
 
 CONTINUAR_TIMER0:
 
@@ -357,8 +401,20 @@ ISR_TIMER1_COMPA:
 
 CONTINUAR_TIMER1:
 
-    rcall ACTUALIZAR_CONTADOR
+    ; Primero bajan los obstáculos
     rcall MOVER_OBSTACULOS
+
+    ; Luego se verifica si chocaron con el vehículo
+    rcall VERIFICAR_CHOQUE
+
+    ; Si hubo choque, juego_activo queda en 0
+    ; y no se actualiza el contador
+    lds r16, juego_activo
+    cpi r16, 0x01
+    brne FIN_TIMER1
+
+    ; Si no hubo choque, aumenta el reloj
+    rcall ACTUALIZAR_CONTADOR
 
 FIN_TIMER1:
     reti
@@ -584,6 +640,13 @@ MOSTRAR_DISPLAY:
 ; presionado    = 1
 ;***********************************************
 LEER_BOTONES:
+    ; Si el juego no está activo, no leer botones
+    lds r16, juego_activo
+    cpi r16, 0x01
+    breq CONTINUAR_LEYENDO_BOTONES
+    ret
+
+CONTINUAR_LEYENDO_BOTONES:
 
     ; Si los botones están bloqueados,
     ; verificar si ya se soltaron
@@ -702,6 +765,226 @@ GUARDAR_OBSTACULO1:
 
 GUARDAR_OBSTACULO2:
     sts obstaculo2_y, r16
+
+    ret
+
+;***********************************************
+; VERIFICAR_CHOQUE
+;
+; Vehículo:
+;   Pixel superior: fila 6, columna pos_carro + 1
+;   Pixel inferior izquierdo: fila 7, columna pos_carro
+;   Pixel inferior derecho: fila 7, columna pos_carro + 2
+;
+; Obstáculo 1:
+;   Fila obstaculo1_y
+;   Columnas 2, 3 y 4
+;
+; Obstáculo 2:
+;   Fila obstaculo2_y
+;   Columnas 3, 4, 5 y 6
+;***********************************************
+VERIFICAR_CHOQUE:
+
+    rcall VERIFICAR_CHOQUE_OBSTACULO1
+
+    ; Si ya hubo choque, no revisar más
+    lds r16, juego_activo
+    cpi r16, 0x00
+    breq FIN_VERIFICAR_CHOQUE
+
+    rcall VERIFICAR_CHOQUE_OBSTACULO2
+
+FIN_VERIFICAR_CHOQUE:
+    ret
+
+;***********************************************
+; VERIFICAR_CHOQUE_OBSTACULO1
+; Obstáculo 1: columnas 2, 3 y 4
+;***********************************************
+VERIFICAR_CHOQUE_OBSTACULO1:
+
+    lds r16, obstaculo1_y
+
+    ; Si el obstáculo está en fila 6,
+    ; puede chocar con el pixel superior del vehículo
+    cpi r16, 6
+    breq OBS1_FILA6
+
+    ; Si el obstáculo está en fila 7,
+    ; puede chocar con los dos pixeles inferiores
+    cpi r16, 7
+    breq OBS1_FILA7
+
+    ret
+
+OBS1_FILA6:
+
+    ; Pixel superior del vehículo:
+    ; columna = pos_carro + 1
+    ;
+    ; Para chocar con columnas 2, 3 o 4:
+    ; pos_carro debe ser 1, 2 o 3
+
+    lds r17, pos_carro
+
+    cpi r17, 1
+    breq OBS1_CHOQUE
+
+    cpi r17, 2
+    breq OBS1_CHOQUE
+
+    cpi r17, 3
+    breq OBS1_CHOQUE
+
+    ret
+
+OBS1_FILA7:
+
+    ; Pixeles inferiores del vehículo:
+    ; columna izquierda = pos_carro
+    ; columna derecha   = pos_carro + 2
+    ;
+    ; Para chocar con columnas 2, 3 o 4:
+    ; pos_carro puede ser 0, 1, 2, 3 o 4
+
+    lds r17, pos_carro
+
+    cpi r17, 0
+    breq OBS1_CHOQUE
+
+    cpi r17, 1
+    breq OBS1_CHOQUE
+
+    cpi r17, 2
+    breq OBS1_CHOQUE
+
+    cpi r17, 3
+    breq OBS1_CHOQUE
+
+    cpi r17, 4
+    breq OBS1_CHOQUE
+
+    ret
+
+OBS1_CHOQUE:
+
+    rcall DETENER_JUEGO
+    ret
+
+;***********************************************
+; VERIFICAR_CHOQUE_OBSTACULO2
+; Obstáculo 2: columnas 3, 4, 5 y 6
+;***********************************************
+VERIFICAR_CHOQUE_OBSTACULO2:
+
+    lds r16, obstaculo2_y
+
+    ; Si el obstáculo está en fila 6,
+    ; puede chocar con el pixel superior del vehículo
+    cpi r16, 6
+    breq OBS2_FILA6
+
+    ; Si el obstáculo está en fila 7,
+    ; puede chocar con los dos pixeles inferiores
+    cpi r16, 7
+    breq OBS2_FILA7
+
+    ret
+
+OBS2_FILA6:
+
+    ; Pixel superior del vehículo:
+    ; columna = pos_carro + 1
+    ;
+    ; Para chocar con columnas 3, 4, 5 o 6:
+    ; pos_carro debe ser 2, 3, 4 o 5
+
+    lds r17, pos_carro
+
+    cpi r17, 2
+    breq OBS2_CHOQUE
+
+    cpi r17, 3
+    breq OBS2_CHOQUE
+
+    cpi r17, 4
+    breq OBS2_CHOQUE
+
+    cpi r17, 5
+    breq OBS2_CHOQUE
+
+    ret
+
+OBS2_FILA7:
+
+    ; Pixeles inferiores del vehículo:
+    ; columna izquierda = pos_carro
+    ; columna derecha   = pos_carro + 2
+    ;
+    ; Para chocar con columnas 3, 4, 5 o 6:
+    ; pos_carro puede ser 1, 2, 3, 4 o 5
+
+    lds r17, pos_carro
+
+    cpi r17, 1
+    breq OBS2_CHOQUE
+
+    cpi r17, 2
+    breq OBS2_CHOQUE
+
+    cpi r17, 3
+    breq OBS2_CHOQUE
+
+    cpi r17, 4
+    breq OBS2_CHOQUE
+
+    cpi r17, 5
+    breq OBS2_CHOQUE
+
+    ret
+
+OBS2_CHOQUE:
+
+    rcall DETENER_JUEGO
+    ret
+
+;***********************************************
+; DETENER_JUEGO
+;
+; Se ejecuta cuando hay choque.
+; Detiene el juego, detiene los timers,
+; apaga la matriz, pero NO borra PORTB.
+; Por eso el display queda con el último número.
+;***********************************************
+DETENER_JUEGO:
+
+	; juego_activo = 2
+	; Estado game over
+	ldi r16, 0x02
+	sts juego_activo, r16
+
+	; Bloquear botones
+	ldi r16, 1
+	sts boton_lock, r16
+
+    ; Detener Timer1
+    ; Así el reloj deja de avanzar
+    ; y los obstáculos no siguen bajando
+    ldi r16, 0x00
+    sts TCCR1B, r16
+
+    ; IMPORTANTE:
+    ; No detener Timer0.
+    ; Timer0 debe seguir refrescando la matriz.
+
+    ; IMPORTANTE:
+    ; No apagar PORTC ni PORTD.
+    ; La matriz queda mostrando la última posición.
+
+    ; IMPORTANTE:
+    ; No tocar PORTB.
+    ; El display queda con el último número registrado.
 
     ret
 
